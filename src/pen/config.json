@@ -1,0 +1,23 @@
+{
+    "name": "Pen",
+    "extensionId": "pen",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["stage"],
+    "description": "Draw with your sprites.",
+    "collaborator": "Scratch",
+    "translationMap": {
+        "en": {
+            "name": "Pen",
+            "description": "Draw with your sprites."
+        },
+        "zh-cn": {
+            "name": "画笔",
+            "description": "绘制角色。"
+        },
+        "zh-tw": {
+            "name": "畫筆",
+            "description": "使用你的角色來畫圖。"
+        }
+    }
+}

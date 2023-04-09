@@ -1,0 +1,23 @@
+{
+    "name": "Music",
+    "extensionId": "music",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["stage"],
+    "description": "Play instruments and drums.",
+    "collaborator": "Scratch",
+    "translationMap": {
+        "en": {
+            "name": "Music",
+            "description": "Play instruments and drums."
+        },
+        "zh-cn": {
+            "name": "音乐",
+            "description": "演奏乐器，敲锣打鼓。"
+        },
+        "zh-tw": {
+            "name": "音樂",
+            "description": "演奏樂器與節拍。"
+        }
+    }
+}

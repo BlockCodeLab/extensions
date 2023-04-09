@@ -1,0 +1,23 @@
+{
+    "name": "Video Sensing",
+    "extensionId": "videoSensing",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["stage"],
+    "description": "Sense motion with the camera.",
+    "collaborator": "Scratch",
+    "translationMap": {
+        "en": {
+            "name": "Video Sensing",
+            "description": "Sense motion with the camera."
+        },
+        "zh-cn": {
+            "name": "视频侦测",
+            "description": "使用摄像头侦测运动。"
+        },
+        "zh-tw": {
+            "name": "視訊偵測",
+            "description": "使用攝影機偵測動作。"
+        }
+    }
+}
