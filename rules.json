@@ -1,0 +1,6 @@
+{
+    "rules": [
+        {"pathname": "/extensions", "dest": "http://127.0.0.1:8018"},
+        {"pathname": "/**", "dest": "http://127.0.0.1:8601"}
+    ]
+}
