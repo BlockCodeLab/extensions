@@ -1,0 +1,21 @@
+{
+    "name": "Makey Makey",
+    "extensionId": "makeymakey",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["hardware", "sensing"],
+    "description": "Make anything into a key.",
+    "collaborator": "JoyLabz",
+    "usbConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "description": "Make anything into a key."
+        },
+        "zh-cn": {
+            "description": "把任何东西编程按键。"
+        },
+        "zh-tw": {
+            "description": "把任何東西編程按鍵。"
+        }
+    }
+}

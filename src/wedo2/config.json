@@ -1,0 +1,23 @@
+{
+    "name": "LEGO Education WeDo 2.0",
+    "extensionId": "wedo2",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "connectionIconURL": "connection.svg",
+    "tags": ["hardware","kit"],
+    "description": "Build with motors and sensors.",
+    "collaborator": "LEGO",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Build with motors and sensors."
+        },
+        "zh-cn": {
+            "description": "支持马达和传感器。"
+        },
+        "zh-tw": {
+            "description": "運用馬達與感測器進行創作。"
+        }
+    }
+}

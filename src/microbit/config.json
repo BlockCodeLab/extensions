@@ -1,0 +1,23 @@
+{
+    "name": "micro:bit",
+    "extensionId": "microbit",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "connectionIconURL": "connection.svg",
+    "tags": ["hardware"],
+    "description": "Connect your projects with the world.",
+    "collaborator": "micro:bit",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Connect your projects with the world."
+        },
+        "zh-cn": {
+            "description": "把作品连接到实体世界。"
+        },
+        "zh-tw": {
+            "description": "讓你的專案與實體世界連結。"
+        }
+    }
+}

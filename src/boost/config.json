@@ -1,0 +1,23 @@
+{
+    "name": "LEGO BOOST",
+    "extensionId": "boost",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "connectionIconURL": "connection.svg",
+    "tags": ["hardware", "kit"],
+    "description": "Bring robotic creations to life.",
+    "collaborator": "LEGO",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Bring robotic creations to life."
+        },
+        "zh-cn": {
+            "description": "生动有趣的机器人创作。"
+        },
+        "zh-tw": {
+            "description": "將機器人創造帶入現實生活。"
+        }
+    }
+}
