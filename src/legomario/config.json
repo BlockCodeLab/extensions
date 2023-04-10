@@ -1,0 +1,23 @@
+{
+    "name": "LEGO Mario",
+    "extensionId": "legomario",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "connectionIconURL": "connection.svg",
+    "tags": ["hardware", "sensing"],
+    "description": "Mario is alive!",
+    "collaborator": "bricklife",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Mario is alive!"
+        },
+        "zh-cn": {
+            "description": "马力欧活力新生啦！"
+        },
+        "zh-tw": {
+            "description": "瑪利歐活力新生啦！"
+        }
+    }
+}
