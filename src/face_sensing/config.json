@@ -1,0 +1,23 @@
+{
+    "name": "Face Sensing",
+    "extensionId": "faceSensing",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["ai", "stage", "sensing"],
+    "description": "Sense faces with the camera.",
+    "collaborator": "Scratch Lab",
+    "translationMap": {
+        "en": {
+            "name": "Face Sensing",
+            "description": "Sense faces with the camera."
+        },
+        "zh-cn": {
+            "name": "脸部侦测",
+            "description": "使用摄像头侦测脸部。"
+        },
+        "zh-tw": {
+            "name": "臉部偵測",
+            "description": "使用攝像頭偵測臉部。"
+        }
+    }
+}

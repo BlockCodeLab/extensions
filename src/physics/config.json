@@ -1,0 +1,24 @@
+{
+    "preview": true,
+    "name": "Physics",
+    "extensionId": "physics",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["stage", "utility"],
+    "description": "A 2D physics engine for games.",
+    "collaborator": "griffpatch",
+    "translationMap": {
+        "en": {
+            "name": "Physics",
+            "description": "A 2D physics engine for games."
+        },
+        "zh-cn": {
+            "name": "物理引擎",
+            "description": "真实的 2D 游戏物理引擎。"
+        },
+        "zh-tw": {
+            "name": "物理引擎",
+            "description": "真實的 2D 遊戲物理引擎。"
+        }
+    }
+}
