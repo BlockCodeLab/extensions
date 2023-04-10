@@ -1,0 +1,27 @@
+{
+    "name": "Translate",
+    "extensionId": "translate",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["ai"],
+    "description": "Translate text into many languages.",
+    "collaborator": "Baidu Translate",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "Translate",
+            "description": "Translate text into many languages.",
+            "collaborator": "Baidu Translate"
+        },
+        "zh-cn": {
+            "name": "翻译",
+            "description": "把文字翻译成多种语言。",
+            "collaborator": "百度翻译"
+        },
+        "zh-tw": {
+            "name": "翻譯",
+            "description": "把文字翻譯成多種語言。",
+            "collaborator": "百度翻譯"
+        }
+    }
+}
