@@ -1,0 +1,26 @@
+{
+    "name": "Notification",
+    "extensionId": "notification",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["utility"],
+    "description": "Notify you, notify me!",
+    "collaborator": "Yeqin Gong",
+    "translationMap": {
+        "en": {
+            "name": "Notification",
+            "description": "Notify you, notify me!",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "通知",
+            "description": "通知一下，你我皆知。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "通知",
+            "description": "通知一下，你我皆知。",
+            "collaborator": "龔業勤"
+        }
+    }
+}

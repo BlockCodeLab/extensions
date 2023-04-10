@@ -1,0 +1,28 @@
+{
+    "name": "Weather",
+    "extensionId": "weather",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["data"],
+    "description": "Knows the daily weather.",
+    "collaborator": "QWeather",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "Weather",
+            "description": "Knows the daily weather.",
+            "collaborator": "QWeather"
+        },
+        "zh-cn":{
+            "name": "天气",
+            "description": "知晓每天的天气。",
+            "collaborator": "和风天气"
+        },
+        "zh-tw": {
+            "name": "天氣",
+            "description": "知曉每天的天氣。",
+            "collaborator": "和風天氣"
+
+        }
+    }
+}

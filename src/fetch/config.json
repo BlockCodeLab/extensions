@@ -1,0 +1,27 @@
+{
+    "name": "Fetch Data",
+    "extensionId": "fetch",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["data", "utility"],
+    "description": "Fetch data from any source.",
+    "collaborator": "Yeqin Gong",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "Fetch Data",
+            "description": "Fetch data from any source.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "Fetch 数据",
+            "description": "向互联网请求数据。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "Fetch 數據",
+            "description": "向互聯網請求數據。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
