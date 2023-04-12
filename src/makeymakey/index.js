@@ -381,46 +381,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MakeyMakeyBlocks());
-
-    Scratch.extensions.translations({
-        en: {
-            'makeymakey.downArrow': 'down arrow',
-            'makeymakey.downArrowShort': 'down',
-            'makeymakey.leftArrow': 'left arrow',
-            'makeymakey.leftArrowShort': 'left',
-            'makeymakey.rightArrow': 'right arrow',
-            'makeymakey.rightArrowShort': 'right',
-            'makeymakey.spaceKey': 'space',
-            'makeymakey.upArrow': 'up arrow',
-            'makeymakey.upArrowShort': 'up',
-            'makeymakey.whenKeyPressed': 'when [KEY] key pressed',
-            'makeymakey.whenKeysPressedInOrder': 'when [SEQUENCE] pressed in order',
-        },
-        'zh-cn': {
-            'makeymakey.downArrow': '↓',
-            'makeymakey.downArrowShort': '↓',
-            'makeymakey.leftArrow': '←',
-            'makeymakey.leftArrowShort': '←',
-            'makeymakey.rightArrow': '→',
-            'makeymakey.rightArrowShort': '→',
-            'makeymakey.spaceKey': '空格',
-            'makeymakey.upArrow': '↑',
-            'makeymakey.upArrowShort': '↑',
-            'makeymakey.whenKeyPressed': '当按下 [KEY] 键',
-            'makeymakey.whenKeysPressedInOrder': '当依次按下[SEQUENCE]键时',
-        },
-        'zh-tw': {
-            'makeymakey.downArrow': '向下',
-            'makeymakey.downArrowShort': '向下',
-            'makeymakey.leftArrow': '向左',
-            'makeymakey.leftArrowShort': '向左',
-            'makeymakey.rightArrow': '向右',
-            'makeymakey.rightArrowShort': '向右',
-            'makeymakey.spaceKey': '空白',
-            'makeymakey.upArrow': '向上',
-            'makeymakey.upArrowShort': '向上',
-            'makeymakey.whenKeyPressed': '當 [KEY] 按鈕被按下',
-            'makeymakey.whenKeysPressedInOrder': '當 [SEQUENCE] 按鈕被依序按下',
-        }
-    });
 })();
