@@ -1,0 +1,1 @@
+!function(){const r=180/Math.PI,h={u:0,v:0};function c(t){return(t+270)%360-180}Scratch.export({motionVector:function(t,n,r,c,u,a=h){var o,e=n*n-t*r;return e?(o=-(n*c-t*u),a.u=-(u*n-c*r)*(e=8/e),a.v=o*e):(o=(n+t)*(n+t)+(r+n)*(r+n))?(a.u=(n+t)*(e=-(u+c)*(8/o)),a.v=(r+n)*e):(a.u=0,a.v=0),a},scratchDegrees:c,scratchAtan2:function(t,n){return c(Math.atan2(t,n)*r)}})}();

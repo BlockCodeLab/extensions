@@ -1,0 +1,21 @@
+const extenstionId = location.pathname.split('/').at(-2);
+const KEY = `token_${extenstionId}`;
+const token = JSON.parse(localStorage.getItem(KEY)) || {};
+
+Object.entries(token).forEach(([key, val]) => {
+    const target =  document.getElementById(`token_${key}`);
+    if (target) target.value = val;
+});
+
+const inputs = document.querySelectorAll('input');
+inputs.forEach(input => {
+    input.addEventListener('input', handleInput);
+});
+
+function handleInput (e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    token[name] = value;
+    localStorage.setItem(KEY, JSON.stringify(token));
+}
