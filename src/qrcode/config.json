@@ -1,0 +1,27 @@
+{
+    "name": "QR Code",
+    "extensionId": "qrcode",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["stage", "sensing"],
+    "dependencies": ["videoSensing"],
+    "description": "Scan and generate QR code.",
+    "collaborator": "Yeqin Gong",
+    "translationMap": {
+        "en": {
+            "name": "QR Code",
+            "description": "Scan and generate QR code.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "二维码",
+            "description": "识别和生成二维码。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "二維碼",
+            "description": "識別和生成二維碼。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
