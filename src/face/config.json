@@ -1,0 +1,29 @@
+{
+    "disabled": true,
+    "name": "Face Recognising",
+    "extensionId": "face",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["ai", "sensing"],
+    "dependencies": ["videoSensing"],
+    "description": "Who are you? Let me guess!",
+    "collaborator": "Baidu AI Cloud",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "Face Recognising",
+            "description": "Who are you? Let me guess!",
+            "collaborator": "Baidu AI Cloud"
+        },
+        "zh-cn": {
+            "name": "人脸识别",
+            "description": "你是谁？让我猜一猜！",
+            "collaborator": "百度智能云"
+        },
+        "zh-tw": {
+            "name": "人臉識別",
+            "description": "你是誰？讓我猜一猜！",
+            "collaborator": "百度智能雲"
+        }
+    }
+}

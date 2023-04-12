@@ -1,0 +1,23 @@
+{
+    "disabled": true,
+    "name": "LEGO DUPLO Train",
+    "extensionId": "duplotrain",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["hardware", "robot"],
+    "description": "Build and control your train.",
+    "collaborator": "bricklife",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Build and control your train."
+        },
+        "zh-cn": {
+            "description": "建造并控制你的小火车。"
+        },
+        "zh-tw": {
+            "description": "建造並控制你的小火車。"
+        }
+    }
+}

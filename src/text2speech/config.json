@@ -1,0 +1,24 @@
+{
+    "disabled": true,
+    "name": "Text to Speech",
+    "extensionId": "text2speech",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["ai"],
+    "description": "Make your projects talk.",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "Text to Speech",
+            "description": "Make your projects talk."
+        },
+        "zh-cn": {
+            "name": "文字朗读",
+            "description": "让你的作品开口说话。"
+        },
+        "zh-tw": {
+            "name": "文字轉語音",
+            "description": "讓你的專案能夠說話。"
+        }
+    }
+}

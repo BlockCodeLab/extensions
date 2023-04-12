@@ -1,0 +1,24 @@
+{
+    "disabled": true,
+    "name": "Speech to Text",
+    "extensionId": "speech2text",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["sensing", "ai"],
+    "description": "Talk to your projects.",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "Speech to Text",
+            "description": "Talk to your projects."
+        },
+        "zh-cn": {
+            "name": "语音识别",
+            "description": "和作品聊聊天。"
+        },
+        "zh-tw": {
+            "name": "語音轉文字",
+            "description": "和作品聊聊天。"
+        }
+    }
+}

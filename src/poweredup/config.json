@@ -1,0 +1,23 @@
+{
+    "disabled": true,
+    "name": "LEGO Powered Up",
+    "extensionId": "poweredup",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["hardware", "kit"],
+    "description": "Build with motors and sensors.",
+    "collaborator": "bricklife",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Build with motors and sensors."
+        },
+        "zh-cn": {
+            "description": "支持马达和传感器。"
+        },
+        "zh-tw": {
+            "description": "運用馬達與感測器進行創作。"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "disabled": true,
+    "name": "micro:bit V2",
+    "extensionId": "microbit2",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["hardware"],
+    "description": "Your projects can be change the world.",
+    "collaborator": "Yeqin Gong",
+    "usbConnectionRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Your projects can be change the world.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "description": "用作品改造大世界。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "description": "用作品改造大世界。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
