@@ -1,0 +1,23 @@
+{
+    "name": "Animated Text",
+    "extensionId": "text",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["stage"],
+    "description": "Bring words to life.",
+    "collaborator": "Scratch Lab",
+    "translationMap": {
+        "en": {
+            "name": "Animated Text",
+            "description": "Bring words to life."
+        },
+        "zh-cn": {
+            "name": "动画文字",
+            "description": "让文字鲜活起来。"
+        },
+        "zh-tw": {
+            "name": "動畫文字",
+            "description": "讓文字鮮活起來。"
+        }
+    }
+}
