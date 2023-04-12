@@ -1,0 +1,27 @@
+{
+    "name": "MQTT Protocol",
+    "extensionId": "mqtt",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["iot", "utility"],
+    "description": "The standard for IoT messaging.",
+    "collaborator": "Yeqin Gong",
+    "internetConnectionRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "MQTT Protocol",
+            "description": "The standard for IoT messaging.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "MQTT 协议",
+            "description": "用消息互联万物。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "MQTT 協議",
+            "description": "用消息互聯萬物。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
