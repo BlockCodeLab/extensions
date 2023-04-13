@@ -9,8 +9,9 @@
 	const Clone = Scratch.Clone;
 	const MathUtil = Scratch.MathUtil;
 	const formatMessage = Scratch.formatMessage;
-	const Video = Scratch.Video;
 	const TargetType = Scratch.TargetType;
+
+    const FORMAT_IMAGE_DATA = 'image-data';
 
     /**
      * Icon svg to be displayed in the blocks category menu, encoded as a data URI.
