@@ -30,9 +30,13 @@
         static get DEFAULT_TEXT_STATE () {
             return {
                 skinId: null,
-                text: DefaultText,
+                text: formatMessage({
+                    id: 'text.defaultText',
+                    default: 'Welcome to my project!',
+                    description: ''
+                }),
                 font: 'Handwriting',
-                color: 'hsla(225, 15%, 40%, 1',
+                color: 'hsla(225, 15%, 40%, 1)',
                 // GUI's text-primary color
                 size: 24,
                 maxWidth: 480,
