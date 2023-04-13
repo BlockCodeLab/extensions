@@ -1,0 +1,26 @@
+{
+    "name": "Dictionary",
+    "extensionId": "dictionary",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "tags": ["data"],
+    "description": "Use key-value to manage data.",
+    "collaborator": "Yeqin Gong",
+    "translationMap": {
+        "en": {
+            "name": "Dictionary",
+            "description": "Use key-value to manage data.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "字典",
+            "description": "使用“键-值”管理数据。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "字典",
+            "description": "使用“鍵-值”管理數據。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
