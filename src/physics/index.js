@@ -831,79 +831,277 @@
 
         get STAGE_TYPE_MENU () {
             return [
-                {text: 'boxed stage', value: STAGE_TYPE_OPTIONS.BOXED},
-                {text: 'open (with floor)', value: STAGE_TYPE_OPTIONS.FLOOR},
-                {text: 'open (no floor)', value: STAGE_TYPE_OPTIONS.OPEN}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuBoxedStage',
+                        default: 'boxed stage'
+                    }),
+                    value: STAGE_TYPE_OPTIONS.BOXED
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuOpenFloor',
+                        default: 'open (with floor)'
+                    }),
+                    value: STAGE_TYPE_OPTIONS.FLOOR
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuOpenOnFloor',
+                        default: 'open (no floor)'
+                    }),
+                    value: STAGE_TYPE_OPTIONS.OPEN
+                },
             ];
         }
 
         get SPACE_TYPE_MENU () {
             return [
-                {text: 'in world', value: SPACE_TYPE_OPTIONS.WORLD},
-                {text: 'on stage', value: SPACE_TYPE_OPTIONS.STAGE},
-                {text: 'relative', value: SPACE_TYPE_OPTIONS.RELATIVE}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuInWorld',
+                        default: 'in world'
+                    }),
+                    value: SPACE_TYPE_OPTIONS.WORLD
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuOnStage',
+                        default: 'on stage'
+                    }),
+                    value: SPACE_TYPE_OPTIONS.STAGE
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuRelative',
+                        default: 'relative'
+                    }),
+                    value: SPACE_TYPE_OPTIONS.RELATIVE
+                },
             ];
         }
 
         get WHERE_TYPE_MENU () {
             return [
-                {text: 'any', value: WHERE_TYPE_OPTIONS.ANY},
-                {text: 'feet', value: WHERE_TYPE_OPTIONS.FEET}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuAny',
+                        default: 'any'
+                    }),
+                    value: WHERE_TYPE_OPTIONS.ANY
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuFeet',
+                        default: 'feet'
+                    }),
+                    value: WHERE_TYPE_OPTIONS.FEET
+                },
             ];
         }
 
         get SHAPE_TYPE_MENU () {
             return [
-                {text: 'this costume', value: SHAPE_TYPE_OPTIONS.COSTUME},
-                {text: 'this circle', value: SHAPE_TYPE_OPTIONS.CIRCLE},
-                {text: 'this polygon', value: SHAPE_TYPE_OPTIONS.SVG_POLYGON},
-                {text: 'all sprites', value: SHAPE_TYPE_OPTIONS.ALL}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuThisCostume',
+                        default: 'this costume'
+                    }),
+                    value: SHAPE_TYPE_OPTIONS.COSTUME
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuThisCircle',
+                        default: 'this circle'
+                    }),
+                    value: SHAPE_TYPE_OPTIONS.CIRCLE
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuThisPolygon',
+                        default: 'this polygon'
+                    }),
+                    value: SHAPE_TYPE_OPTIONS.SVG_POLYGON
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuAllSprites',
+                        default: 'all sprites'
+                    }),
+                    value: SHAPE_TYPE_OPTIONS.ALL
+                },
             ];
         }
 
         get ENABLE_TYPES_TYPE_MENU () {
             return [
-                {text: 'normal', value: 'normal'},
-                {text: 'precision', value: 'bullet'}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuNormal',
+                        default: 'normal'
+                    }),
+                    value: 'normal'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuPrecision',
+                        default: 'precision'
+                    }),
+                    value: 'bullet'
+                },
             ];
         }
 
         get STATIC_TYPE_MENU () {
             return [
-                {text: 'free', value: 'dynamic'},
-                {text: 'fixed in place', value: 'static'},
-                {text: 'fixed (but can rotate)', value: 'pinned'}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuFree',
+                        default: 'free'
+                    }),
+                    value: 'dynamic'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuFixedInPlace',
+                        default: 'fixed in place'
+                    }),
+                    value: 'static'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuFixedCanRotate',
+                        default: 'fixed (but can rotate)'
+                    }),
+                    value: 'pinned'
+                },
             ];
         }
 
         get DENSITY_TYPE_MENU () {
             return [
-                {text: 'very light', value: '25'},
-                {text: 'light', value: '50'},
-                {text: 'normal', value: '100'},
-                {text: 'heavy', value: '200'},
-                {text: 'very heavy', value: '400'}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuVeryLight',
+                        default: 'very light'
+                    }),
+                    value: '25'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuLight',
+                        default: 'light'
+                    }),
+                    value: '50'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuNormal',
+                        default: 'normal'
+                    }),
+                    value: '100'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuHeavy',
+                        default: 'heavy'
+                    }),
+                    value: '200'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuVeryHeavy',
+                        default: 'very heavy'
+                    }),
+                    value: '400'
+                },
             ];
         }
 
         get FRICTION_TYPE_MENU () {
             return [
-                {text: 'none', value: '0'},
-                {text: 'smooth', value: '20'},
-                {text: 'normal', value: '50'},
-                {text: 'rough', value: '75'},
-                {text: 'extremely rough', value: '100'}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuNone',
+                        default: 'none'
+                    }),
+                    value: '0'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuSmooth',
+                        default: 'smooth'
+                    }),
+                    value: '20'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuNormal',
+                        default: 'normal'
+                    }),
+                    value: '50'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuRough',
+                        default: 'rough'
+                    }),
+                    value: '75'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuExtremelyRough',
+                        default: 'extremely rough'
+                    }),
+                    value: '100'
+                },
             ];
         }
 
         get RESTITUTION_TYPE_MENU () {
             return [
-                {text: 'none', value: '0'},
-                {text: 'little', value: '10'},
-                {text: 'normal', value: '20'},
-                {text: 'quite bouncy', value: '40'},
-                {text: 'very bouncy', value: '70'},
-                {text: 'unstable', value: '100'}
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuNone',
+                        default: 'none'
+                    }),
+                    value: '0'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuLittle',
+                        default: 'little'
+                    }),
+                    value: '10'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuNormal',
+                        default: 'normal'
+                    }),
+                    value: '20'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuQuiteBouncy',
+                        default: 'quite bouncy'
+                    }),
+                    value: '40'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuVeryBouncy',
+                        default: 'very bouncy'
+                    }),
+                    value: '70'
+                },
+                {
+                    text: formatMessage({
+                        id: 'griffpatch.menuUnstable',
+                        default: 'unstable'
+                    }),
+                    value: '100'
+                },
             ];
         }
 
@@ -1555,33 +1753,147 @@
             'griffpatch.getScrollX': 'x scroll',
             'griffpatch.getScrollY': 'y scroll',
             // 'griffpatch.getStatic': 'Static?',
+            'griffpatch.menuBoxedStage': 'boxed stage',
+            'griffpatch.menuOpenFloor': 'open (with floor)',
+            'griffpatch.menuOpenOnFloor': 'open (no floor)',
+            'griffpatch.menuInWorld': 'in world',
+            'griffpatch.menuOnStage': 'on stage',
+            'griffpatch.menuRelative': 'relative',
+            'griffpatch.menuAny': 'any',
+            'griffpatch.menuFeet': 'feet',
+            'griffpatch.menuThisCostume': 'this costume',
+            'griffpatch.menuThisCircle': 'this circle',
+            'griffpatch.menuThisPolygon': 'this polygon',
+            'griffpatch.menuAllSprites': 'all sprites',
+            'griffpatch.menuNormal': 'normal',
+            'griffpatch.menuPrecision': 'precision',
+            'griffpatch.menuFree': 'free',
+            'griffpatch.menuFixedInPlace': 'fixed in place',
+            'griffpatch.menuFixedCanRotate': 'fixed (but can rotate)',
+            'griffpatch.menuVeryLight': 'very light',
+            'griffpatch.menuLight': 'light',
+            'griffpatch.menuHeavy': 'heavy',
+            'griffpatch.menuVeryHeavy': 'very heavy',
+            'griffpatch.menuNone': 'none',
+            'griffpatch.menuSmooth': 'smooth',
+            'griffpatch.menuRough': 'rough',
+            'griffpatch.menuExtremelyRough': 'extremely rough',
+            'griffpatch.menuLittle': 'little',
+            'griffpatch.menuQuiteBouncy': 'quite bouncy',
+            'griffpatch.menuVeryBouncy': 'very bouncy',
+            'griffpatch.menuUnstable': 'unstable'
         },
         'zh-cn': {
             'griffpatch.categoryName': '物理引擎',
             'griffpatch.setStage': '将舞台设为 [stageType]',
-            'griffpatch.setGravity': '设置重力 x: [gx] y: [gy]',
-            'griffpatch.setPhysics': 'enable for [shape] mode [mode]',
+            'griffpatch.setGravity': '将重力设为 x: [gx] y: [gy]',
+            'griffpatch.setPhysics': '以 [mode] 模式将形状设为 [shape]',
             // 'griffpatch.setPhysics': 'enable physics for sprite [shape]',
             // 'griffpatch.setPhysicsAll': 'enable physics for all sprites',
-            'griffpatch.doTick': '单步模拟',
+            'griffpatch.doTick': '逐步模拟',
             'griffpatch.start': '开始模拟',
             'griffpatch.setPosition': '移到 [space] 的 x: [x] y: [y]',
             'griffpatch.setVelocity': '将速度设为 x: [sx] y: [sy]',
             'griffpatch.changeVelocity': '将速度增加 x: [sx] y: [sy]',
             'griffpatch.getVelocityX': 'x 速度',
             'griffpatch.getVelocityY': 'y 速度',
-            'griffpatch.applyForce': '向 [dir] 方向施加 [force] 的力',
-            'griffpatch.applyAngForce': '施加 [force] 旋转的力',
-            'griffpatch.setStatic': '将静态方式设为 [static]',
+            'griffpatch.applyForce': '向 [dir] 方向施加 [force] 大小的力',
+            'griffpatch.applyAngForce': '施加 [force] 大小的转动力',
+            'griffpatch.setStatic': '将固定模式设为 [static]',
             // 'griffpatch.setDensity': 'set density [density]',
-            'griffpatch.setProperties': 'set density [density] roughness [friction] bounce [restitution]',
+            'griffpatch.setProperties': '将密度设为 [density] 摩擦力设为 [friction] 反弹力设为 [restitution]',
             // 'griffpatch.pinSprite': 'pin to world at sprite\'s x: [x] y: [y]',
-            'griffpatch.getTouching': 'touching [where]',
-            'griffpatch.setScroll': '将世界原点设为 x: [ox] y: [oy]',
-            'griffpatch.changeScroll': '将世界原点增加 x: [ox] y: [oy]',
-            'griffpatch.getScrollX': '世界原点 x 坐标',
-            'griffpatch.getScrollY': '世界原点 y 坐标',
+            'griffpatch.getTouching': '[where] 碰到东西',
+            'griffpatch.setScroll': '将偏移设为 x: [ox] y: [oy]',
+            'griffpatch.changeScroll': '将偏移增加 x: [ox] y: [oy]',
+            'griffpatch.getScrollX': 'x 偏移',
+            'griffpatch.getScrollY': 'y 偏移',
             // 'griffpatch.getStatic': 'Static?',
+            'griffpatch.menuBoxedStage': '有地面和墙的舞台',
+            'griffpatch.menuOpenFloor': '只有地面的开放舞台',
+            'griffpatch.menuOpenOnFloor': '完全开放的舞台',
+            'griffpatch.menuInWorld': '世界坐标',
+            'griffpatch.menuOnStage': '舞台坐标',
+            'griffpatch.menuRelative': '相对坐标',
+            'griffpatch.menuAny': '自己',
+            'griffpatch.menuFeet': '自己下方',
+            'griffpatch.menuThisCostume': '角色造型',
+            'griffpatch.menuThisCircle': '圆形',
+            'griffpatch.menuThisPolygon': '多边形',
+            'griffpatch.menuAllSprites': '所有',
+            'griffpatch.menuNormal': '普通',
+            'griffpatch.menuPrecision': '精确',
+            'griffpatch.menuFree': '不固定',
+            'griffpatch.menuFixedInPlace': '将角色静止',
+            'griffpatch.menuFixedCanRotate': '可绕固定锚点转动',
+            'griffpatch.menuVeryLight': '非常轻',
+            'griffpatch.menuLight': '轻',
+            'griffpatch.menuHeavy': '重',
+            'griffpatch.menuVeryHeavy': '非常重',
+            'griffpatch.menuNone': '无',
+            'griffpatch.menuSmooth': '比较光滑',
+            'griffpatch.menuRough': '粗糙',
+            'griffpatch.menuExtremelyRough': '极其粗糙',
+            'griffpatch.menuLittle': '小',
+            'griffpatch.menuQuiteBouncy': '比较有弹性',
+            'griffpatch.menuVeryBouncy': '非常有弹性',
+            'griffpatch.menuUnstable': '极其易变形'
+        },
+        'zh-tw': {
+            'griffpatch.categoryName': '物理引擎',
+            'griffpatch.setStage': '將舞臺設為 [stageType]',
+            'griffpatch.setGravity': '將重力設為 x: [gx] y: [gy]',
+            'griffpatch.setPhysics': '以 [mode] 模式將形狀設為 [shape]',
+            // 'griffpatch.setPhysics': 'enable physics for sprite [shape]',
+            // 'griffpatch.setPhysicsAll': 'enable physics for all sprites',
+            'griffpatch.doTick': '逐步模擬',
+            'griffpatch.start': '開始模擬',
+            'griffpatch.setPosition': '移到 [space] 的 x: [x] y: [y]',
+            'griffpatch.setVelocity': '將速度設為 x: [sx] y: [sy]',
+            'griffpatch.changeVelocity': '將速度增加 x: [sx] y: [sy]',
+            'griffpatch.getVelocityX': 'x 速度',
+            'griffpatch.getVelocityY': 'y 速度',
+            'griffpatch.applyForce': '向 [dir] 方向施加 [force] 大小的力',
+            'griffpatch.applyAngForce': '施加 [force] 大小的轉動力',
+            'griffpatch.setStatic': '將固定模式設為 [static]',
+            // 'griffpatch.setDensity': 'set density [density]',
+            'griffpatch.setProperties': '將密度設為 [density] 摩擦力設為 [friction] 反彈力設為 [restitution]',
+            // 'griffpatch.pinSprite': 'pin to world at sprite\'s x: [x] y: [y]',
+            'griffpatch.getTouching': '[where] 碰到東西',
+            'griffpatch.setScroll': '將偏移設為 x: [ox] y: [oy]',
+            'griffpatch.changeScroll': '將偏移增加 x: [ox] y: [oy]',
+            'griffpatch.getScrollX': 'x 偏移',
+            'griffpatch.getScrollY': 'y 偏移',
+            // 'griffpatch.getStatic': 'Static?',
+            'griffpatch.menuBoxedStage': '有地面和牆的舞臺',
+            'griffpatch.menuOpenFloor': '只有地面的開放舞臺',
+            'griffpatch.menuOpenOnFloor': '完全開放的舞臺',
+            'griffpatch.menuInWorld': '世界座標',
+            'griffpatch.menuOnStage': '舞臺座標',
+            'griffpatch.menuRelative': '相對座標',
+            'griffpatch.menuAny': '自己',
+            'griffpatch.menuFeet': '自己下方',
+            'griffpatch.menuThisCostume': '角色造型',
+            'griffpatch.menuThisCircle': '圓形',
+            'griffpatch.menuThisPolygon': '多邊形',
+            'griffpatch.menuAllSprites': '所有',
+            'griffpatch.menuNormal': '普通',
+            'griffpatch.menuPrecision': '精確',
+            'griffpatch.menuFree': '不固定',
+            'griffpatch.menuFixedInPlace': '將角色靜止',
+            'griffpatch.menuFixedCanRotate': '可繞固定錨點轉動',
+            'griffpatch.menuVeryLight': '非常輕',
+            'griffpatch.menuLight': '輕',
+            'griffpatch.menuHeavy': '重',
+            'griffpatch.menuVeryHeavy': '非常重',
+            'griffpatch.menuNone': '無',
+            'griffpatch.menuSmooth': '比較光滑',
+            'griffpatch.menuRough': '粗糙',
+            'griffpatch.menuExtremelyRough': '極其粗糙',
+            'griffpatch.menuLittle': '小',
+            'griffpatch.menuQuiteBouncy': '比較有彈性',
+            'griffpatch.menuVeryBouncy': '非常有彈性',
+            'griffpatch.menuUnstable': '極其易變形'
         }
     });
 })();
