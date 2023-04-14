@@ -112,7 +112,7 @@
                 Math.max(this.runtime.currentStepTime, Scratch3FaceSensingBlocks.INTERVAL)
             );
             const frame = this.runtime.ioDevices.video.getFrame({
-                format: Video.FORMAT_IMAGE_DATA,
+                format: FORMAT_IMAGE_DATA,
                 dimensions: Scratch3FaceSensingBlocks.DIMENSIONS,
                 cacheTimeout: this.runtime.currentStepTime
             });
