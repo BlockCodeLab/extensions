@@ -841,7 +841,7 @@
          * @return {Promise} - a Promise that resolves after a tick.
          */
         displaySymbol (args) {
-            const symbol = cast.toString(args.MATRIX).replace(/\s/g, '');
+            const symbol = cast.toString(args.MATRIX).replace(/:/g, '').replace(/\s/g, '');
             const reducer = (accumulator, c, index) => {
                 const value = (c === '0') ? accumulator : accumulator + Math.pow(2, index);
                 return value;

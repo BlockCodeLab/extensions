@@ -1009,8 +1009,8 @@
          * @param {object} base64 - the incoming BLE data.
          * @private
          */
-        _onMessage (base64) {
-            const data = Base64Util.base64ToUint8Array(base64);
+        _onMessage (data) {
+            // const data = Base64Util.base64ToUint8Array(base64);
 
             /**
              * First three bytes are the common header:
