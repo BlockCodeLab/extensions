@@ -1,0 +1,24 @@
+{
+    "preview": true,
+    "name": "micro:bit more",
+    "extensionId": "microbitMore",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.svg",
+    "connectionIconURL": "connection.svg",
+    "tags": ["hardware"],
+    "description": "Play with all functions of micro:bit.",
+    "collaborator": "Yengawa Lab",
+    "bluetoothRequired": true,
+    "launchPeripheralConnectionFlow": true,
+    "translationMap": {
+        "en": {
+            "description": "Play with all functions of micro:bit."
+        },
+        "zh-cn": {
+            "description": "玩转 micro:bit 所有功能。"
+        },
+        "zh-tw": {
+            "description": "玩轉 micro:bit 所有功能。"
+        }
+    }
+}
