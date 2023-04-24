@@ -16,6 +16,8 @@ const DIST_DIR = path.join(__dirname, '../dist/extensions');
 const TEMPLATE_FILE = path.join(__dirname, '../build/template.ejs');
 const CONFIG_FILE = 'config.json';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const SUPPORTED_EXTNAMES = [
     '.js',
     '.json',
@@ -23,7 +25,10 @@ const SUPPORTED_EXTNAMES = [
     '.jpg',
     '.jpeg',
     '.svg',
-    '.md'
+    '.md',
+    '.hex', // for micro:bit
+    '.uf2', // for rp2040
+    '.bin'  // for micropython
 ];
 
 mkdirp.sync(DIST_DIR);
@@ -74,6 +79,9 @@ const build = isMinify => {
                 if (filename.toLowerCase() === CONFIG_FILE) {
                     try {
                         const {translationMap, ...configData} = JSON.parse(fs.readFileSync(filepath, 'utf8'));
+                        if (isProduction && configData.disabled) {
+                            return;
+                        }
                         Object.entries(translationMap).forEach(([locale, data]) => {
                             collection[locale] = collection[locale] || [];
                             const localeData = locale !== 'en' ?
