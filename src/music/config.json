@@ -3,7 +3,7 @@
     "extensionId": "music",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
-    "tags": ["stage", "media"],
+    "tags": ["utility"],
     "description": "Play instruments and drums.",
     "collaborator": "Scratch",
     "translationMap": {

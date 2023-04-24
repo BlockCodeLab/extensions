@@ -4,7 +4,7 @@
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
     "connectionIconURL": "connection.svg",
-    "tags": ["hardware", "sensing"],
+    "tags": ["hardware"],
     "description": "Mario is alive!",
     "collaborator": "bricklife",
     "bluetoothRequired": true,

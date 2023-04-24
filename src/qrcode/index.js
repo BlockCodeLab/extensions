@@ -44,7 +44,6 @@
         getInfo () {
             return {
                 id: 'qrcode',
-                dependencies: ['videoSensing'],
                 name: formatMessage({
                     id: 'qrcode.name',
                     default: 'QR Code'
@@ -248,6 +247,7 @@
         }
 
         stopAll () {
+            this.runtime.ioDevices.video.disableVideo();
             Object.values(this.runtime.targets).forEach(target => {
                 this.clear({}, {
                     target: target

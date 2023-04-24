@@ -4,7 +4,7 @@
     "extensionId": "poweredup",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
-    "tags": ["hardware", "kit"],
+    "tags": ["hardware", "robot"],
     "description": "Build with motors and sensors.",
     "collaborator": "bricklife",
     "bluetoothRequired": true,

@@ -4,7 +4,7 @@
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
     "connectionIconURL": "connection.svg",
-    "tags": ["hardware","kit"],
+    "tags": ["hardware", "robot"],
     "description": "Build with motors and sensors.",
     "collaborator": "LEGO",
     "bluetoothRequired": true,

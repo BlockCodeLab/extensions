@@ -3,7 +3,7 @@
     "extensionId": "makeymakey",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
-    "tags": ["hardware", "sensing"],
+    "tags": ["hardware"],
     "description": "Make anything into a key.",
     "collaborator": "JoyLabz",
     "usbConnectionRequired": true,

@@ -3,7 +3,7 @@
     "extensionId": "faceSensing",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
-    "tags": ["ai", "stage", "sensing"],
+    "tags": ["ai", "stage"],
     "description": "Sense faces with the camera.",
     "collaborator": "Scratch Lab",
     "translationMap": {

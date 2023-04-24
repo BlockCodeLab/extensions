@@ -3,7 +3,7 @@
     "extensionId": "qrcode",
     "iconURL": "feature.png",
     "insetIconURL": "icon.png",
-    "tags": ["stage", "sensing"],
+    "tags": ["stage"],
     "dependencies": ["videoSensing"],
     "description": "Scan and generate QR code.",
     "collaborator": "Yeqin Gong",
