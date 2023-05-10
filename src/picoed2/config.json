@@ -6,21 +6,21 @@
     "insetIconURL": "icon.png",
     "connectionIconURL": "connection.png",
     "tags": ["hardware"],
-    "description": "Small board to play with the big world.",
+    "description": "Small board, but a lot of functions.",
     "collaborator": "Yeqin Gong",
     "usbConnectionRequired": true,
     "launchPeripheralConnectionFlow": true,
     "translationMap": {
         "en": {
-            "description": "Small board to play with the big world.",
+            "description": "Small board, but a lot of functions.",
             "collaborator": "Yeqin Gong"
         },
         "zh-cn": {
-            "description": "小小开发板玩转大大世界。",
+            "description": "小小开发板，功能却不少。",
             "collaborator": "龚业勤"
         },
         "zh-tw": {
-            "description": "小小開發板玩轉大大世界。",
+            "description": "小小開發板，功能卻不少。",
             "collaborator": "龔業勤"
         }
     }
