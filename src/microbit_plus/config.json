@@ -1,7 +1,7 @@
 {
     "disabled": true,
-    "name": "micro:bit V2",
-    "extensionId": "microbit2",
+    "name": "micro:bit plus",
+    "extensionId": "microbitPlus",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
     "tags": ["hardware"],
@@ -15,11 +15,11 @@
             "collaborator": "Yeqin Gong"
         },
         "zh-cn": {
-            "description": "用作品改造大世界。",
+            "description": "用作品打造更好的世界。",
             "collaborator": "龚业勤"
         },
         "zh-tw": {
-            "description": "用作品改造大世界。",
+            "description": "用作品改造更好的世界。",
             "collaborator": "龔業勤"
         }
     }
