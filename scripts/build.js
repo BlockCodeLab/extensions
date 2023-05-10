@@ -18,19 +18,7 @@ const CONFIG_FILE = 'config.json';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const SUPPORTED_EXTNAMES = [
-    '.js',
-    '.json',
-    '.png',
-    '.jpg',
-    '.jpeg',
-    '.svg',
-    '.md',
-    '.hex', // for micro:bit
-    '.uf2', // for rp2040
-    '.bin'  // for micropython
-];
-
+const NOT_SUPPORTED_EXTNAMES = [];
 mkdirp.sync(DIST_DIR);
 
 marked.use({ extensions: [tokenBox] });
@@ -53,15 +41,10 @@ const build = isMinify => {
         mkdirp.sync(path.join(DIST_DIR, extension));
 
         fs.readdirSync(extensionPath)
-            .filter(filename => {
-                const filepath = path.join(SOURCE_DIR, extension, filename);
-                const stat = fs.statSync(filepath);
-                return filename[0] !== '.' &&
-                    (
-                        stat.isDirectory() ||
-                        SUPPORTED_EXTNAMES.includes(path.extname(filename))
-                    )
-            })
+            .filter(filename => !(
+                filename[0] === '.' ||
+                NOT_SUPPORTED_EXTNAMES.includes(path.extname(filename))
+            ))
             .forEach(filename => {
                 const filepath = path.join(SOURCE_DIR, extension, filename);
                 const outpath = path.join(DIST_DIR, extension, filename);
