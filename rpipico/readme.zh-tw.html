@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, minimal-ui">
+	<link rel="stylesheet" href="../typo.css"/>
+	<link rel="stylesheet" href="../theme.css"/>
+	<title>樹莓派 Pico</title>
+</head>
+<body>
+
+<div id="wrapper" class="typo typo-selection">
+<h1 id="樹莓派-pico">樹莓派 Pico</h1>
+<p>樹莓派 Pico 系列是一系列微型、快速和多功能的電路板，使用 RP2040 芯片構建，RP2040 芯片是由樹莓派在英國設計的旗艦微控制器芯片。</p>
+<h2 id="認識樹莓派-pico">認識樹莓派 Pico</h2>
+<p>詳細查看<a href="https://www.raspberrypi.com/products/raspberry-pi-pico/">樹莓派 Pico 產品頁</a>，購買地址：<a href="https://item.taobao.com/item.htm?id=697019187951">淘寶鏈接</a>。</p>
+<p><img src="./imgs/front.png" alt="正面"></p>
+<h2 id="樹莓派-pico-擴展">樹莓派 Pico 擴展</h2>
+<p>樹莓派 Pico 擴展是基於 Scratch 3.0 開發的擴展模塊，可以讓 Scratch 3.0 具備對樹莓派 Pico 開發板進行開發的功能。</p>
+<p>使用擴展對樹莓派 Pico 開發板進行實時編程或離線編程（暫未開放），在實時編程時可以及時看到運行效果並能與電腦進行交互；實時編程完成後直接下載到樹莓派 Pico 開發板中就可以離線運行，離線運行可以不用連接電腦，但也失去了與電腦的交互能力。</p>
+<h3 id="固件">固件</h3>
+<p>要求樹莓派 Pico 開發板下載最新定製固件（<a href="./firmware/kaluma-rp2-pico-1.1.0-beta.1.uf2">kaluma-rp2-pico-1.1.0-beta.1.uf2</a>）。</p>
+<h4 id="拖放安裝固件">拖放安裝固件</h4>
+<p>下載好固件後，將樹莓派 Pico 開發板準備好（不要連接電腦 USB 接口），然後按下面的步驟安裝固件：</p>
+<ol>
+<li>按住樹莓派 Pico 開發板背面的 BOOTSEL 按鈕，然後將樹莓派 Pico 開發板插入 PC 的 USB 接口，然後鬆開 BOOTSEL 按鈕。</li>
+<li>樹莓派 Pico 開發板會被識別為大容量存儲設備。</li>
+<li>將下載的固件文件（UF2 文件）放入 RPI-RP2 捲上。</li>
+<li>樹莓派 Pico 開發板將自動重啟，然後就開始編程了。</li>
+</ol>
+<p><img src="./imgs/bootset.png" alt="BOOTSET 按鈕"></p>
+<p>接下來就可以使用樹莓派 Pico 擴展對樹莓派 Pico 開發板進行編程了。</p>
+<h3 id="連接樹莓派-pico">連接樹莓派 Pico</h3>
+<table>
+<thead>
+<tr>
+<th align="center">點擊感嘆號開始連接</th>
+<th align="center">選擇樹莓派 Pico 開發板</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="./imgs/connect.png" alt="連接"></td>
+<td align="center"><img src="./imgs/choose.png" alt="選擇"></td>
+</tr>
+</tbody></table>
+<p>現在開始享受愉快的編程吧！</p>
+<h2 id="編程">編程</h2>
+<h3 id="引腳">引腳</h3>
+<p><img src="./imgs/pinout.png" alt="引腳"></p>
+
+</div>
+
+<script type="text/javascript" src="../main.js"></script>
+</body>
+</html>

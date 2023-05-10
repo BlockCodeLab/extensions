@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, minimal-ui">
+	<link rel="stylesheet" href="../typo.css"/>
+	<link rel="stylesheet" href="../theme.css"/>
+	<title>Raspberry PI Pico</title>
+</head>
+<body>
+
+<div id="wrapper" class="typo typo-selection">
+<h1 id="raspberry-pi-pico">Raspberry PI Pico</h1>
+<p>The Raspberry Pi Pico series is a range of tiny, fast, and versatile boards built using RP2040, the flagship microcontroller chip designed by Raspberry Pi in the UK.</p>
+<h2 id="meet-the-raspberry-pi-pico">Meet the Raspberry PI Pico</h2>
+<p>Detailed view <a href="https://www.raspberrypi.com/products/raspberry-pi-pico/">Raspberry Pi Pico product page</a>, buy address: link (<a href="https://thepihut.com/products/raspberry-pi-pico">https://thepihut.com/products/raspberry-pi-pico</a>).</p>
+<p><img src="./imgs/front.png" alt="front"></p>
+<h2 id="the-raspberry-pi-pico-extension">The Raspberry PI Pico Extension</h2>
+<p>The Raspberry PI Pico extension is an extension module developed based on Scratch 3.0, which can make Scratch 3.0 have the function of developing the Raspberry PI Pico board.</p>
+<p>Use the extension to perform real-time programming or offline programming of the Raspberry PI Pico board (not yet open), and you can see the running effect in time and interact with the computer during real-time programming. After real-time programming is completed, it can be directly downloaded to the Raspberry PI Pico board to run offline. Offline operation can not be connected to a computer, but it also loses the ability to interact with the computer.</p>
+<h3 id="firmware">Firmware</h3>
+<p>The Raspberry PI Pico Board is required to download the latest custom firmware (<a href="./firmware/kaluma-rp2-pico-1.1.0-beta.1.uf2">kaluma-rp2-pico-1.1.0-beta.1.uf2</a>).</p>
+<h4 id="drag-and-drop-to-install-firmware">Drag and drop to install firmware</h4>
+<p>After downloading the firmware, get the Raspberry PI Pico board ready (without connecting the USB port to the computer), and then install the firmware by following these steps:</p>
+<ol>
+<li>Press and hold the BOOTSEL button on the back of the Raspberry PI Pico board, then plug the Raspberry PI Pico board into the USB port of the PC, and release the BOOTSEL button.</li>
+<li>The Raspberry PI Pico board will be recognized as a mass storage device.</li>
+<li>Put the downloaded firmware file (UF2 file) on the RPI-RP2 volume.</li>
+<li>The Raspberry PI Pico board will restart automatically and programming will begin.</li>
+</ol>
+<p><img src="./imgs/bootset.png" alt="BOOTSET button"></p>
+<p>Next you can use the Raspberry PI Pico extension to program the Raspberry PI Pico board.</p>
+<h3 id="connecting-the-raspberry-pi-pico">Connecting the Raspberry PI Pico</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Click the exclamation mark to start the connection</th>
+<th align="center">Select Raspberry Pi Pico board</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="./imgs/connect.png" alt="connection"></td>
+<td align="center"><img src="./imgs/choose.png" alt="select"></td>
+</tr>
+</tbody></table>
+<p>Now start having fun coding!</p>
+<h2 id="programming">Programming</h2>
+<h3 id="pins">Pins</h3>
+<p><img src="./imgs/pinout.png" alt="Pins"></p>
+
+</div>
+
+<script type="text/javascript" src="../main.js"></script>
+</body>
+</html>
