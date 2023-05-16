@@ -585,11 +585,13 @@
          * @returns {object} metadata for this extension and its blocks.
          */
         getInfo () {
+            const locale = formatMessage.setup().locale;
             return {
                 id: Scratch3MicroBitBlocks.EXTENSION_ID,
                 name: Scratch3MicroBitBlocks.EXTENSION_NAME,
                 blockIconURI: blockIconURI,
                 showStatusButton: true,
+                docsURI: Scratch.require.resolve(`readme.${locale}.html`),
                 blocks: [
                     {
                         opcode: 'whenButtonPressed',

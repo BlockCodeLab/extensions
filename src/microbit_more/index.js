@@ -2081,11 +2081,13 @@
          * @returns {object} metadata for this extension and its blocks.
          */
         getInfo () {
+            const locale = formatMessage.setup().locale;
             return {
                 id: MbitMoreBlocks.EXTENSION_ID,
                 name: MbitMoreBlocks.EXTENSION_NAME,
                 blockIconURI,
                 showStatusButton: true,
+                docsURI: Scratch.require.resolve(`readme.${locale}.html`),
                 blocks: [
                     {
                         opcode: 'whenConnectionChanged',
