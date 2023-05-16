@@ -69,7 +69,7 @@
         async _onConnect () {
             super._onConnect();
             
-            await this.write('.reset');
+            await this.send('.reset');
             await delay(500);
 
             this._runtime.emit('EXTENSION_DATA_LOADING', true);
@@ -202,7 +202,10 @@
         }
 
         static get EXTENSION_NAME () {
-            return 'RPi Pico';
+            return formatMessage({
+                id: 'rpipico.name',
+                default: 'RPi Pico'
+            });
         }
 
         get LED_STATE_MENU () {
@@ -283,9 +286,6 @@
                 { text: 'GP20', value: '20' },
                 { text: 'GP21', value: '21' },
                 { text: 'GP22', value: '22' },
-                { text: 'GP26', value: '26' },
-                { text: 'GP27', value: '27' },
-                { text: 'GP28', value: '28' },
             ];
         };
 
@@ -315,6 +315,11 @@
         
         getInfo () {
             const locale = formatMessage.setup().locale;
+            this._peripheral.setupAddon(
+                RpiPicoBlocks.EXTENSION_ID,
+                RpiPicoBlocks.EXTENSION_NAME,
+                () => this._peripheral.send('.hi')
+            );
             return {
                 id: RpiPicoBlocks.EXTENSION_ID,
                 name: RpiPicoBlocks.EXTENSION_NAME,

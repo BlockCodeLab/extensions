@@ -129,7 +129,7 @@
         async _onConnect () {
             super._onConnect();
             
-            await this.write('.reset');
+            await this.send('.reset');
             await delay(500);
 
             this._runtime.emit('EXTENSION_DATA_LOADING', true);
@@ -345,6 +345,10 @@
     class PicoEd2Blocks {
         static get EXTENSION_ID () {
             return 'picoed2';
+        }
+
+        static get EXTENSION_NAME () {
+            return 'Pico:ed V2';
         }
 
         get LED_STATE_MENU () {
@@ -784,30 +788,6 @@
             ];
         };
 
-        get DIGITAL_PINS_MENU () {
-            return [
-                { text: 'P0', value: '0' },
-                { text: 'P1', value: '1' },
-                { text: 'P2', value: '2' },
-                { text: 'P3', value: '3' },
-                { text: 'P4', value: '4' },
-                { text: 'P5', value: '5' },
-                { text: 'P6', value: '6' },
-                { text: 'P7', value: '7' },
-                { text: 'P8', value: '8' },
-                { text: 'P9', value: '9' },
-                { text: 'P10', value: '10' },
-                { text: 'P11', value: '11' },
-                { text: 'P12', value: '12' },
-                { text: 'P13', value: '13' },
-                { text: 'P14', value: '14' },
-                { text: 'P15', value: '15' },
-                { text: 'P16', value: '16' },
-                { text: 'P19', value: '19' },
-                { text: 'P20', value: '20' }
-            ];
-        };
-
         get DIGITAL_VALUE_MENU () {
             return [
                 {
@@ -835,9 +815,14 @@
         
         getInfo () {
             const locale = formatMessage.setup().locale;
+            this._peripheral.setupAddon(
+                PicoEd2Blocks.EXTENSION_ID,
+                PicoEd2Blocks.EXTENSION_NAME,
+                () => this._peripheral.send('.hi')
+            );
             return {
                 id: PicoEd2Blocks.EXTENSION_ID,
-                name: 'Pico:ed V2',
+                name: PicoEd2Blocks.EXTENSION_NAME,
                 blockIconURI: blockIconURI,
                 showStatusButton: true,
                 docsURI: Scratch.require.resolve(`readme.${locale}.html`),
