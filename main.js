@@ -17,5 +17,12 @@ function handleInput (e) {
     const name = target.name;
     const value = target.value;
     token[name] = value;
-    localStorage.setItem(KEY, JSON.stringify(token));
+    const tokenStr = JSON.stringify(token);
+    localStorage.setItem(KEY, tokenStr);
+    setCookie(KEY, tokenStr);
+}
+
+function setCookie(key, value) {
+    const domain = location.hostname.split('.').slice(-2).join('.');
+    document.cookie= `${key}=${encodeURIComponent(value)};path=/;domain=${domain}}`;
 }
