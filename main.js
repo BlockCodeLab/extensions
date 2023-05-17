@@ -1,9 +1,9 @@
 const extenstionId = location.pathname.split('/').at(-2);
-const KEY = `config_${extenstionId}`;
+const KEY = `token_${extenstionId}`;
 const token = JSON.parse(localStorage.getItem(KEY)) || {};
 
 Object.entries(token).forEach(([key, val]) => {
-    const target =  document.getElementById(`config_${key}`);
+    const target =  document.getElementById(`token_${key}`);
     if (target) target.value = val;
 });
 
