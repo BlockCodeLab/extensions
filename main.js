@@ -24,5 +24,5 @@ function handleInput (e) {
 
 function setCookie(key, value) {
     const domain = location.hostname.split('.').slice(-2).join('.');
-    document.cookie= `${key}=${encodeURIComponent(value)};path=/;domain=${domain}}`;
+    document.cookie = `${key}=${encodeURIComponent(value)};path=/;domain=${domain}`;
 }
