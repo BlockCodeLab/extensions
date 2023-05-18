@@ -308,7 +308,7 @@
 
         _getToken () {
             try {
-                const token = JSON.parse(localStorage.getItem(`token_${WeatherBlocks.EXTENSION_ID}`));
+                const token = Scratch.extensions.getConfig(WeatherBlocks.EXTENSION_ID);
                 this.key = token.key;
             } catch (e) { /* ignore */ }
         }

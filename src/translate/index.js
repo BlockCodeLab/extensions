@@ -98,7 +98,7 @@
 
         _getToken () {
             try {
-                const token = JSON.parse(localStorage.getItem(`token_${TranslateBlocks.EXTENSION_ID}`));
+                const token = Scratch.extensions.getConfig(TranslateBlocks.EXTENSION_ID);
                 this.appid = token.appid;
                 this.secret = token.secret;
             } catch (e) { /* ignore */ }
