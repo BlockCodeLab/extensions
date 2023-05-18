@@ -118,8 +118,7 @@
                         }),
                         arguments: {
                             COLOR: {
-                                type: ArgumentType.COLOR,
-                                defaultValue: QRCodeBlocks.DEFAULT_QRCODE_STATE.color
+                                type: ArgumentType.COLOR
                             }
                         }
                     },
