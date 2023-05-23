@@ -5,9 +5,10 @@
     const Clone = Scratch.Clone;
     const Cast = Scratch.Cast;
     const formatMessage = Scratch.formatMessage;
-    const Video = Scratch.Video;
 
     const VideoMotion = await Scratch.require('./library.js');
+
+    const FORMAT_IMAGE_DATA = 'image-data';
 
     /**
      * Icon svg to be displayed in the blocks category menu, encoded as a data URI.
@@ -255,7 +256,7 @@
             const offset = time - this._lastUpdate;
             if (offset > Scratch3VideoSensingBlocks.INTERVAL) {
                 const frame = this.runtime.ioDevices.video.getFrame({
-                    format: Video.FORMAT_IMAGE_DATA,
+                    format: FORMAT_IMAGE_DATA,
                     dimensions: Scratch3VideoSensingBlocks.DIMENSIONS
                 });
                 if (frame) {

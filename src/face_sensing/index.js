@@ -33,7 +33,7 @@
          * is analyzed.
          * @type {number}
          */
-        get INTERVAL () {
+        static get INTERVAL () {
             return 1000 / 15;
         }
         /**
@@ -41,13 +41,13 @@
          * sample canvas.
          * @type {Array.<number>}
          */
-        get DIMENSIONS () {
+        static get DIMENSIONS () {
             return [480, 360];
         }
-        get STATE_KEY () {
+        static get STATE_KEY () {
             return 'Scratch.faceSensing';
         }
-        get DEFAULT_FACE_SENSING_STATE () {
+        static get DEFAULT_FACE_SENSING_STATE () {
             return {
                 attachedToPartNumber: null,
                 prevX: 0,
@@ -152,7 +152,7 @@
       
         }
         _getFaceSensingState (target) {
-            const faceSensingState = target.getCustomState(Scratch3FaceSensingBlocks.STATE_KEY);
+            let faceSensingState = target.getCustomState(Scratch3FaceSensingBlocks.STATE_KEY);
 
             if (!faceSensingState) {
                 faceSensingState = Clone.simple(Scratch3FaceSensingBlocks.DEFAULT_FACE_SENSING_STATE);
