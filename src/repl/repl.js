@@ -223,10 +223,6 @@
             }
         }
 
-        async send (command, waitFor = null) {
-            return await this.write(`\r${command.replaceAll('\n', '\\n')}\r`, waitFor);
-        }
-
         async transfer (buffer) {
             if (this._busy) return;
             if (this.isConnected()) {
