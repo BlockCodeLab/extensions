@@ -1,6 +1,6 @@
 {
-  "name": "scratch-x",
-  "version": "0.1.0",
+  "name": "extensions",
+  "version": "0.3.0",
   "description": "The extension manager for Scratch 3.0",
   "scripts": {
     "build": "npm run clean && node ./scripts/build.js",
