@@ -1,4 +1,4 @@
-(async function () {
+(async function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
@@ -50,7 +50,7 @@
             super(runtime, extensionId);
             this._encoder = new TextEncoder();
             this._runtime.registerPeripheralExtension(this._extensionId, this);
-
+            this._files = [];
             this.state = {};
         }
 
@@ -62,7 +62,7 @@
         }
 
         disconnect () {
-            this._runtime.emit('EXTENSION_DATA_LOADING', false);
+            this._runtime.emit('EXTENSION_DATA_DOWNLOADING', false);
             super.disconnect();
         }
 
@@ -72,21 +72,24 @@
             await this.send('.reset');
             await delay(500);
 
-            this._runtime.emit('EXTENSION_DATA_LOADING', true);
+            this._runtime.emit('EXTENSION_DATA_DOWNLOADING', true);
             try {
                 // put files...
+                for (const [filename, content] of this._files) {
+                    await this._put(filename, content);
+                }
                 // and setups
-                this._setupLED();
+                await this._setupLED();
             } catch (e) {
                 this._serial._handleRequestError(e);
             } finally {
-                this._runtime.emit('EXTENSION_DATA_LOADING', false);
+                this._runtime.emit('EXTENSION_DATA_DOWNLOADING', false);
             }
         }
 
         async _put (filename, buffer) {
             const uint8 = this._encoder.encode(buffer);
-            const safeBuffer = buffer.replace('\\', '\\\\').replace('\'', '\\\'');
+            const safeBuffer = buffer.replaceAll('\\', '\\\\').replaceAll('\'', '\\\'').replaceAll('\n', '\\n');
             const code = `(${FILE_PUT_CODE})('${filename}', '${safeBuffer}');`;
             try {
                 await this.write('\r.ls\r', `\r\n${uint8.length}\t${filename}\r\n`, 500);
@@ -311,6 +314,30 @@
         constructor () {
             this.runtime = Scratch.vm.runtime;
             this._peripheral = new RpiPico(this.runtime, RpiPicoBlocks.EXTENSION_ID);
+            this.runtime.on('PROJECT_STOP_ALL', () => this.send('.reset', '\r\nsoft reset\r\n'));
+        }
+
+        // board services
+        async put (files) {
+            if (this._peripheral.isConnected()) {
+                this.runtime.emit('EXTENSION_DATA_DOWNLOADING', true);
+                try {
+                    // put files...
+                    for (const [filename, content] of files) {
+                        await this._peripheral._put(filename, content);
+                    }
+                } catch (e) {
+                    this._peripheral._serial._handleRequestError(e);
+                } finally {
+                    this.runtime.emit('EXTENSION_DATA_DOWNLOADING', false);
+                }
+            } else {
+                this._peripheral._files = this._peripheral._files.concat(files);
+            }
+        }
+
+        send (command, waitFor) {
+            return this._peripheral.send(command, waitFor);
         }
         
         getInfo () {
@@ -554,4 +581,4 @@
     }
 
     Scratch.extensions.register(new RpiPicoBlocks());
-})();
+})(window.Scratch);

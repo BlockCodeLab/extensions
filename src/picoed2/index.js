@@ -1,4 +1,4 @@
-(async function () {
+(async function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
@@ -6,7 +6,7 @@
     const formatMessage = Scratch.formatMessage;
 
     const Repl = await Scratch.require('../repl/repl.js');
-    const fonts = await Scratch.require('./fonts.js');
+    const FontFiles = await Scratch.require('./fonts.js');
 
     // all translations
     const translations = await Scratch.require('./translations.js');
@@ -107,7 +107,7 @@
             super(runtime, extensionId);
             this._encoder = new TextEncoder();
             this._runtime.registerPeripheralExtension(this._extensionId, this);
-
+            this._files = [];
             this.state = {
                 a: false,
                 b: false,
@@ -122,7 +122,7 @@
         }
 
         disconnect () {
-            this._runtime.emit('EXTENSION_DATA_LOADING', false);
+            this._runtime.emit('EXTENSION_DATA_DOWNLOADING', false);
             super.disconnect();
         }
 
@@ -132,23 +132,25 @@
             await this.send('.reset');
             await delay(500);
 
-            this._runtime.emit('EXTENSION_DATA_LOADING', true);
+            this._runtime.emit('EXTENSION_DATA_DOWNLOADING', true);
             try {
-                const files = Object.entries(fonts);
+                // put files...
+                const files = [].concat(this._files.concat, Object.entries(FontFiles));
                 for (const [filename, content] of files) {
                     await this._put(filename, content);
                 }
+                // and setups
                 await this._setupButtons();
             } catch (e) {
                 this._serial._handleRequestError(e);
             } finally {
-                this._runtime.emit('EXTENSION_DATA_LOADING', false);
+                this._runtime.emit('EXTENSION_DATA_DOWNLOADING', false);
             }
         }
 
         async _put (filename, buffer) {
             const uint8 = this._encoder.encode(buffer);
-            const safeBuffer = buffer.replace('\\', '\\\\').replace('\'', '\\\'');
+            const safeBuffer = buffer.replaceAll('\\', '\\\\').replaceAll('\'', '\\\'').replaceAll('\n', '\\n');
             const code = `(${FILE_PUT_CODE})('${filename}', '${safeBuffer}');`;
             try {
                 await this.write('\r.ls\r', `\r\n${uint8.length}\t${filename}\r\n`, 500);
@@ -810,7 +812,31 @@
         constructor () {
             this.runtime = Scratch.vm.runtime;
             this._peripheral = new PicoEd2(this.runtime, PicoEd2Blocks.EXTENSION_ID);
+            this.runtime.on('PROJECT_STOP_ALL', () => this.send('.reset', '\r\nsoft reset\r\n'));
             this.runtime.on('PROJECT_STOP_ALL', this.stopMusic.bind(this));
+        }
+
+        // board services
+        async put (files) {
+            if (this._peripheral.isConnected()) {
+                this.runtime.emit('EXTENSION_DATA_DOWNLOADING', true);
+                try {
+                    // put files...
+                    for (const [filename, content] of files) {
+                        await this._peripheral._put(filename, content);
+                    }
+                } catch (e) {
+                    this._peripheral._serial._handleRequestError(e);
+                } finally {
+                    this.runtime.emit('EXTENSION_DATA_DOWNLOADING', false);
+                }
+            } else {
+                this._peripheral._files = this._peripheral._files.concat(files);
+            }
+        }
+
+        send (command, waitFor) {
+            return this._peripheral.send(command, waitFor);
         }
         
         getInfo () {
@@ -1348,4 +1374,4 @@
     }
 
     Scratch.extensions.register(new PicoEd2Blocks());
-})();
+})(window.Scratch);
