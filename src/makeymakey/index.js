@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const formatMessage = Scratch.formatMessage;
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
@@ -381,4 +381,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MakeyMakeyBlocks());
-})();
+})(window.Scratch);

@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const formatMessage = Scratch.formatMessage;
@@ -568,4 +568,4 @@
             'weather.pollutant.o3': '臭氧',
         },
     });
-})();
+})(window.Scratch);

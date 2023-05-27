@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     /**
      * A constant value helping to transform a value in radians to degrees.
      * @type {number}
@@ -75,4 +75,4 @@
         scratchDegrees,
         scratchAtan2
     });
-})()
+})(window.Scratch)

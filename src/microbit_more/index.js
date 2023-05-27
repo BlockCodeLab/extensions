@@ -1,5 +1,5 @@
 // https://github.com/microbit-more/mbit-more-v2/blob/master/src/vm/extensions/block/index.js
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Base64Util = Scratch.Base64Util;
@@ -3523,4 +3523,4 @@
             'microbitMore.sendData.data': '數據'
         },
     });
-})();
+})(window.Scratch);

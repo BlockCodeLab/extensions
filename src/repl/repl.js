@@ -1,4 +1,4 @@
-(async function () {
+(async function (Scratch) {
     const Serial = Scratch.Serial;
     const formatMessage = Scratch.formatMessage;
     const log = Scratch.log;
@@ -290,4 +290,4 @@
             'repl.name': 'REPL'
         }
     });
-})();
+})(window.Scratch);

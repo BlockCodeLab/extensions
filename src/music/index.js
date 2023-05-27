@@ -1,5 +1,4 @@
-
-(async function () {
+(async function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Clone = Scratch.Clone;
@@ -1333,4 +1332,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MusicBlocks());
-})();
+})(window.Scratch);

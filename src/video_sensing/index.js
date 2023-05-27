@@ -1,4 +1,4 @@
-(async function () {
+(async function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Base64Util = Scratch.Base64Util;
@@ -614,4 +614,4 @@
     }
 
     Scratch.extensions.register(new Scratch3VideoSensingBlocks());
-})();
+})(window.Scratch);

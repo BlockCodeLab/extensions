@@ -1,5 +1,5 @@
 // https://github.com/griffpatch/scratch-vm/blob/box2d/src/extensions/scratch3_griffpatch/index.js
-(async function () {
+(async function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     // const MathUtil = require('../../util/math-util');
@@ -1896,4 +1896,4 @@
             'griffpatch.menuUnstable': '極其易變形'
         }
     });
-})();
+})(window.Scratch);

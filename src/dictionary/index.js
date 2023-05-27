@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
@@ -32,7 +32,6 @@
                             default: 'Make a List as a Dictionary'
                         })
                     },
-                    '---',
                     {
                         opcode: 'addKeyValue',
                         blockType: BlockType.COMMAND,
@@ -448,4 +447,4 @@
             'dictionary.defaultVariableName': 'my dictionary'
         }
     });
-})();
+})(window.Scratch);

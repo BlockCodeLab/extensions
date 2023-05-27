@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
@@ -1615,4 +1615,4 @@
     }
 
     Scratch.extensions.register(new Scratch3WeDo2Blocks());
-})();
+})(window.Scratch);

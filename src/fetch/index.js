@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const formatMessage = Scratch.formatMessage;
@@ -147,4 +147,4 @@
             'fetch.clear': '清除緩存'
         }
     });
-})();
+})(window.Scratch);

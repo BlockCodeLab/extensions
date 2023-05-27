@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
@@ -104,4 +104,4 @@
             'notification.message': '消息'
         }
     });
-})();
+})(window.Scratch);

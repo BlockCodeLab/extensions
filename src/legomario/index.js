@@ -1,5 +1,5 @@
 // https://github.com/bricklife/scratch-lego-bluetooth-extensions/tree/master/scratch-vm/src/extensions/scratch3_legomario
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Buffer = Scratch.Buffer;
@@ -898,4 +898,4 @@
             'legomario.pants.builder': '建築工',
         }
     });
-})();
+})(window.Scratch);

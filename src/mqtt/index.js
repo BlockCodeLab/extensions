@@ -1,5 +1,5 @@
-(async function () {
-    Scratch.require('https://unpkg.com/mqtt@4.3.7/dist/mqtt.min.js');
+(async function (Scratch) {
+    await Scratch.require('https://unpkg.com/mqtt@4.3.7/dist/mqtt.min.js');
 
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
@@ -266,4 +266,4 @@
             'mqtt.end': '結束連接'
         }
     });
-})();
+})(window.Scratch);

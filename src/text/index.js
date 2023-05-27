@@ -1,4 +1,4 @@
-(async function () {
+(async function (Scratch) {
     const formatMessage = Scratch.formatMessage;
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
@@ -820,4 +820,4 @@
             'text.zoom': '放大'
         }
     });
-})();
+})(window.Scratch);

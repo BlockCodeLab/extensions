@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const log = Scratch.log;
@@ -985,4 +985,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MicroBitBlocks());
-})();
+})(window.Scratch);

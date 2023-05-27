@@ -1,4 +1,4 @@
-(function () {
+(function (Scratch) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const TargetType = Scratch.TargetType;
@@ -770,4 +770,4 @@
     }
 
     Scratch.extensions.register(new Scratch3PenBlocks);
-})();
+})(window.Scratch);
