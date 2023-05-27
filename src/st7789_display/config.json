@@ -1,0 +1,28 @@
+{
+    "preview": true,
+    "name": "ST7789 Display",
+    "extensionId": "st7789Display",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["hardware","graphics"],
+    "description": "Let the world see your beauty.",
+    "collaborator": "Yeqin Gong",
+    "circuitRequired": true,
+    "translationMap": {
+        "en": {
+            "name": "ST7789 Display",
+            "description": "Let the world see your beauty.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "ST7789 显示屏",
+            "description": "让世界看见你的美。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "ST7789 顯示屏",
+            "description": "讓世界看到你的美。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
