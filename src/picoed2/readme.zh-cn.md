@@ -18,7 +18,7 @@ Pico:ed V2 扩展是基于 Scratch 3.0 开发的扩展模块，可以让 Scratch
 
 ### 固件
 
-要求 Pico:ed V2 开发板下载最新定制固件（[kaluma-rp2-picoed-1.1.0-beta.1.uf2](./firmware/kaluma-rp2-picoed-1.1.0-beta.1.uf2)）。
+要求 Pico:ed V2 开发板下载最新定制固件（[kaluma-rp2-picoed-1.1.0-beta.2.uf2](./firmware/kaluma-rp2-picoed-1.1.0-beta.2.uf2)）。
 
 #### 拖放安装固件
 

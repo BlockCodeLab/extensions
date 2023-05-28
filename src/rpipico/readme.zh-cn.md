@@ -16,7 +16,7 @@
 
 ### 固件
 
-要求树莓派 Pico 开发板下载最新定制固件（[kaluma-rp2-pico-1.1.0-beta.1.uf2](./firmware/kaluma-rp2-pico-1.1.0-beta.1.uf2)）。
+要求树莓派 Pico 开发板下载最新 Kaluma 固件（[kaluma-rp2-pico-1.1.0-beta.2.uf2](./firmware/kaluma-rp2-pico-1.1.0-beta.2.uf2)）。
 
 #### 拖放安装固件
 

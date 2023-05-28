@@ -18,7 +18,7 @@ Real-time programming or off-line programming of Pico:ed V2 development board wi
 
 ### Firmware
 
-The Pico:ed V2 development board is required to download the latest custom firmware: [kaluma-rp2-picoed-1.1.0-beta.1.uf2](./firmware/kaluma-rp2-picoed-1.1.0-beta.1.uf2)
+The Pico:ed V2 development board is required to download the latest custom firmware: [kaluma-rp2-picoed-1.1.0-beta.2.uf2](./firmware/kaluma-rp2-picoed-1.1.0-beta.2.uf2)
 
 #### Drag and drop to install firmware
 

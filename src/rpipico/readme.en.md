@@ -16,7 +16,7 @@ Use the extension to perform real-time programming or offline programming of the
 
 ### Firmware
 
-The Raspberry PI Pico Board is required to download the latest custom firmware ([kaluma-rp2-pico-1.1.0-beta.1.uf2](./firmware/kaluma-rp2-pico-1.1.0-beta.1.uf2)).
+The Raspberry PI Pico Board is required to download the latest Kaluma firmware ([kaluma-rp2-pico-1.1.0-beta.2.uf2](./firmware/kaluma-rp2-pico-1.1.0-beta.2.uf2)).
 
 #### Drag and drop to install firmware
 
