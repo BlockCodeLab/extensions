@@ -1,6 +1,6 @@
 {
     "preview": true,
-    "name": "Pico:ed V2",
+    "name": "ELECFREAKS Pico:ed V2",
     "extensionId": "picoed2",
     "iconURL": "feature.png",
     "insetIconURL": "icon.png",
@@ -12,14 +12,17 @@
     "launchPeripheralConnectionFlow": true,
     "translationMap": {
         "en": {
+            "name": "ELECFREAKS Pico:ed V2",
             "description": "Small board, but a lot of functions.",
             "collaborator": "Yeqin Gong"
         },
         "zh-cn": {
+            "name": "恩孚 Pico:ed V2",
             "description": "小小开发板，功能却不少。",
             "collaborator": "龚业勤"
         },
         "zh-tw": {
+            "name": "ELECFREAKS Pico:ed V2",
             "description": "小小開發板，功能卻不少。",
             "collaborator": "龔業勤"
         }
