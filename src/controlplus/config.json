@@ -1,7 +1,7 @@
 {
     "preview": true,
-    "name": "LEGO Powered Up",
-    "extensionId": "poweredup",
+    "name": "LEGO Control+",
+    "extensionId": "controlplus",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
     "connectionIconURL": "connection.svg",

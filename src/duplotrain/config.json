@@ -1,9 +1,10 @@
 {
-    "disabled": true,
+    "preview": true,
     "name": "LEGO DUPLO Train",
     "extensionId": "duplotrain",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
+    "connectionIconURL": "connection.svg",
     "tags": ["hardware", "robot"],
     "description": "Build and control your train.",
     "collaborator": "bricklife",

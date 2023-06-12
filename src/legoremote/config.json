@@ -1,24 +1,24 @@
 {
     "preview": true,
-    "name": "LEGO Powered Up",
-    "extensionId": "poweredup",
+    "name": "LEGO Powered UP Remote Control",
+    "extensionId": "legoremote",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
     "connectionIconURL": "connection.svg",
     "tags": ["hardware", "robot"],
-    "description": "Build with motors and sensors.",
+    "description": "Control by remote control.",
     "collaborator": "bricklife",
     "bluetoothRequired": true,
     "launchPeripheralConnectionFlow": true,
     "translationMap": {
         "en": {
-            "description": "Build with motors and sensors."
+            "description": "Control your projects by remote control."
         },
         "zh-cn": {
-            "description": "支持马达和传感器。"
+            "description": "通过遥控器控制你的作品。"
         },
         "zh-tw": {
-            "description": "運用馬達與感測器進行創作。"
+            "description": "通過遙控器控制你的作品。"
         }
     }
 }

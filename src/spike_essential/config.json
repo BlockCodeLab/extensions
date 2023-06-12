@@ -1,7 +1,7 @@
 {
     "preview": true,
-    "name": "LEGO Powered Up",
-    "extensionId": "poweredup",
+    "name": "LEGO SPIKE Essential",
+    "extensionId": "spikeEssential",
     "iconURL": "feature.png",
     "insetIconURL": "icon.svg",
     "connectionIconURL": "connection.svg",
