@@ -309,14 +309,14 @@
 
         removeKey (args, util) {
             const id = Cast.toString(args.DICT);
-            if (this._dicts[id]) {
+            const list = util.target.lookupVariableById(id);
+            if (list) {
+                if (!this._dicts[id]) {
+                    this._initDict(id, list);
+                }
                 const key = Cast.toString(args.KEY);
                 delete this._dicts[id][key];
-                
-                const list = util.target.lookupVariableById(id);
-                if (list) {
-                    this._updateList(list);
-                }
+                this._updateList(list);
             }
         }
 
@@ -431,19 +431,19 @@
         },
         'zh-tw': {
             'dictionary.name': '字典',
-            'dictionary.makeADictionary': '建立一个清单作为字典',
+            'dictionary.makeADictionary': '建立一個清單作為字典',
             'dictionary.defaultKey': '一個',
             'dictionary.defaultValue': '東西',
-            'dictionary.addKeyValue': '以 [KEY] 键名添加 [VALUE] 到 [DICT]',
-            'dictionary.removeKey': '删除 [DICT] 键名为 [KEY] 的项',
-            'dictionary.removeAllKeys': '删除 [DICT] 的所有项目',
-            'dictionary.replaceKeyValue': '替换 [DICT] 键名为 [KEY] 的项为 [VALUE]',
-            'dictionary.getValue': '[DICT] 键名为 [KEY] 的项',
-            'dictionary.getKey': '[VALUE] 在 [DICT] 里的键名',
-            'dictionary.getLength': '字典 [DICT] 的长度',
-            'dictionary.isContains': '字典 [DICT] 包含键名 [KEY]?',
-            'dictionary.showDictionary': '字典 [DICT] 显示',
-            'dictionary.hideDictionary': '字典 [DICT] 隐藏',
+            'dictionary.addKeyValue': '以 [KEY] 鍵名添加 [VALUE] 到 [DICT]',
+            'dictionary.removeKey': '刪除 [DICT] 鍵名為 [KEY] 的項',
+            'dictionary.removeAllKeys': '刪除 [DICT] 的所有項目',
+            'dictionary.replaceKeyValue': '替換 [DICT] 鍵名為 [KEY] 的項為 [VALUE]',
+            'dictionary.getValue': '[DICT] 鍵名為 [KEY] 的項',
+            'dictionary.getKey': '[VALUE] 在 [DICT] 裡的鍵名',
+            'dictionary.getLength': '字典 [DICT] 的長度',
+            'dictionary.isContains': '字典 [DICT] 包含鍵名 [KEY]?',
+            'dictionary.showDictionary': '字典 [DICT] 顯示',
+            'dictionary.hideDictionary': '字典 [DICT] 隱藏',
             'dictionary.defaultVariableName': 'my dictionary'
         }
     });
