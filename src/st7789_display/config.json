@@ -4,7 +4,7 @@
     "extensionId": "st7789Display",
     "iconURL": "feature.png",
     "insetIconURL": "icon.png",
-    "tags": ["hardware","graphics"],
+    "tags": ["hardware", "display"],
     "description": "Let the world see your beauty.",
     "collaborator": "Yeqin Gong",
     "circuitRequired": true,
