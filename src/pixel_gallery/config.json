@@ -1,0 +1,26 @@
+{
+    "name": "Pixel Gallery",
+    "extensionId": "pixelGallery",
+    "iconURL": "feature.png",
+    "insetIconURL": "icon.png",
+    "tags": ["data", "utility"],
+    "description": "Pixel style image gallery utility.",
+    "collaborator": "Yeqin Gong",
+    "translationMap": {
+        "en": {
+            "name": "Pixel Gallery",
+            "description": "Pixel style image gallery utility.",
+            "collaborator": "Yeqin Gong"
+        },
+        "zh-cn": {
+            "name": "像素图库",
+            "description": "像素风格图像库工具。",
+            "collaborator": "龚业勤"
+        },
+        "zh-tw": {
+            "name": "像素圖庫",
+            "description": "像素風格圖像庫工具。",
+            "collaborator": "龔業勤"
+        }
+    }
+}
