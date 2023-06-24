@@ -18,7 +18,14 @@
             'rpipico.digitalValueMenu.high': 'high',
             'rpipico.toggleDigitalValue': 'toggle pin [PIN] digital',
             'rpipico.setAnalogValue': 'set pin [PIN] analog [VALUE] %',
-            'rpipico.setServoAngle': 'set pin [PIN] servo angle [ANGLE]'
+            'rpipico.setServoAngle': 'set pin [PIN] servo angle [ANGLE]',
+            'rpipico.interruptEventsMenu.falling': 'falling',
+            'rpipico.interruptEventsMenu.rising': 'rising',
+            'rpipico.interruptEventsMenu.change': 'change',
+            'rpipico.listenEvent': 'listen event on [PIN]',
+            'rpipico.whenCatchEvent': 'when catch [EVENT] at pin [PIN]',
+            'rpipico.isCatchEvent': 'catch [EVENT] at pin [PIN]',
+            'rpipico.stopListen': 'stop listen on [PIN]',
         },
         'zh-cn': {
             'rpipico.name': '树莓派 Pico',
@@ -38,7 +45,14 @@
             'rpipico.digitalValueMenu.high': '高电平',
             'rpipico.toggleDigitalValue': '切换引脚 [PIN] 数字值',
             'rpipico.setAnalogValue': '将引脚 [PIN] 模拟值设为 [VALUE] %',
-            'rpipico.setServoAngle': '将引脚 [PIN] 舵机角度设为 [ANGLE]'
+            'rpipico.setServoAngle': '将引脚 [PIN] 舵机角度设为 [ANGLE]',
+            'rpipico.interruptEventsMenu.falling': '电平下降',
+            'rpipico.interruptEventsMenu.rising': '电平上升',
+            'rpipico.interruptEventsMenu.change': '电平变化',
+            'rpipico.listenEvent': '监听引脚 [PIN] 事件',
+            'rpipico.whenCatchEvent': '当引脚 [PIN] 发生 [EVENT]',
+            'rpipico.isCatchEvent': '引脚 [PIN] 发生 [EVENT] ？',
+            'rpipico.stopListen': '停止监听引脚 [PIN]',
         },
         'zh-tw': {
             'rpipico.name': '樹莓派 Pico',
@@ -58,7 +72,15 @@
             'rpipico.digitalValueMenu.high': '高電平',
             'rpipico.toggleDigitalValue': '切換引腳 [PIN] 數字值',
             'rpipico.setAnalogValue': '將引腳 [PIN] 模擬值設為 [VALUE] %',
-            'rpipico.setServoAngle': '將引腳 [PIN] 舵機角度設為 [ANGLE]'
+            'rpipico.setServoAngle': '將引腳 [PIN] 舵機角度設為 [ANGLE]',
+            'rpipico.setServoAngle': '將引腳 [PIN] 舵機角度設為 [ANGLE]',
+            'rpipico.interruptEventsMenu.falling': '電平下降',
+            'rpipico.interruptEventsMenu.rising': '電平上升',
+            'rpipico.interruptEventsMenu.change': '電平變化',
+            'rpipico.listenEvent': '監聽引腳 [PIN] 事件',
+            'rpipico.whenCatchEvent': '當引腳 [PIN] 發生 [EVENT] 事件',
+            'rpipico.isCatchEvent': '引腳 [PIN] 發生 [EVENT] 事件？',
+            'rpipico.stopListen': '停止監聽引腳 [PIN]',
         },
     });
 })(window.Scratch);

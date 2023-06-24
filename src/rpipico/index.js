@@ -22,6 +22,7 @@
     const WAIT_FOR_PROMPT = '\x1B[0m\r\x1B7> ';
     const WAIT_FOR_UNDEFINED = `\r\n\x1B[90mundefined\x1B[0m\r\n${WAIT_FOR_PROMPT}`;
     const WAIT_FOR_PROMISE = `\r\n\x1B[96m[Promise]\x1B[0m\r\n${WAIT_FOR_PROMPT}`;
+    const WAIT_FOR_NUMBER = /\r\n\x1B\[95m(\d+)\x1B\[0m\r\n\x1B\[0m\r\x1B7> /m
 
     const delay = d => new Promise(r => setTimeout(r, d));
     const isNumber = x => !Number.isNaN(Number(x));
@@ -39,6 +40,11 @@
     const RpiPicoDigitalValue = {
         LOW: 'LOW',
         HIGH: 'HIGH'
+    }
+    const RpiPicoInterruptEvent = {
+        FALLING: 'FALLING',
+        RISING: 'RISING',
+        CHANGE: 'CHANGE'
     }
 
     const SERVO_ANGLE_RANGE = {min: 0, max: 180};
@@ -76,10 +82,8 @@
             try {
                 // put files...
                 for (const [filename, content] of this._files) {
-                    await this._put(filename, content);
+                    await this.put(filename, content);
                 }
-                // and setups
-                await this._setupLED();
             } catch (e) {
                 this._serial._handleRequestError(e);
             } finally {
@@ -87,7 +91,7 @@
             }
         }
 
-        async _put (filename, buffer) {
+        async put (filename, buffer) {
             const uint8 = this._encoder.encode(buffer);
             const safeBuffer = buffer.replaceAll('\\', '\\\\').replaceAll('\'', '\\\'').replaceAll('\n', '\\n');
             const code = `(${FILE_PUT_CODE})('${filename}', '${safeBuffer}');`;
@@ -96,13 +100,18 @@
             } catch (e) {
                 await this.write(`\r.rm ${filename}\r`);
                 await delay(500);
-                await this.write('\r.flash -w\r');
-                await delay(500);
-                await this.transfer(this._encoder.encode(code));
-                await delay(500);
-                await this.write('\r.load\r', WAIT_FOR_PROMPT);
-                await this.write('\r.flash -e\r', '\r\nFlash has erased\r\n');
+                await this.run(code);
             }
+        }
+
+        async run (code) {
+            await this.write('\r.flash -w\r');
+            await delay(500);
+            await this.transfer(this._encoder.encode(code));
+            await delay(500);
+            await this.write('\r.load\r', WAIT_FOR_PROMPT);
+            // await this.write('\r.flash -e\r', '\r\nFlash has erased\r\n');
+            this.state = {};
         }
 
         async send (command, waitFor = null) {
@@ -112,15 +121,21 @@
         /* led */
 
         async _setupLED () {
-            this.state.led = `led_${Date.now()}`;
+            this.state.led = `led_${Date.now().toString(36)}`;
             await this.send(`const ${this.state.led}=board.led(board.LED)`, WAIT_FOR_UNDEFINED);
         }
 
         async led (state) {
+            if (typeof this.state.led === 'undefined') {
+                await this._setupLED();
+            }
             await this.send(`${this.state.led}.${state}()`, WAIT_FOR_UNDEFINED);
         }
 
         async toggle () {
+            if (typeof this.state.led === 'undefined') {
+                await this._setupLED();
+            }
             await this.send(`${this.state.led}.toggle()`, WAIT_FOR_UNDEFINED);
         }
 
@@ -197,6 +212,47 @@
             const duty = (SERVO_DUTY_RANGE.min + angle * d) / SERVO_PERIOD;
             await this.send(`${this.state[pin]}.setDuty(${duty})`, WAIT_FOR_UNDEFINED);
         }
+
+        /* watch */
+        
+        async setupWatcher (pin) {
+            const falling = `console.log('\n~ pin_${pin}_${RpiPicoInterruptEvent.FALLING}')`;
+            const rising = `console.log('\n~ pin_${pin}_${RpiPicoInterruptEvent.RISING}')`;
+            const watchFalling = await this.send(`setWatch(()=>${falling},${pin},FALLING,10)`, WAIT_FOR_NUMBER);
+            const watchRising = await this.send(`setWatch(()=>${rising},${pin},RISING,10)`, WAIT_FOR_NUMBER);
+
+            if (watchFalling || watchRising) {
+                this.state[pin] = {
+                    id: [watchFalling && watchFalling[1], watchRising && watchRising[1]],
+                    value: null
+                };
+                this.on(
+                    new RegExp(`^~ pin_(${pin})_(${RpiPicoInterruptEvent.FALLING}|${RpiPicoInterruptEvent.RISING})$`, 'm'),
+                    found => {
+                        this.state[pin].value = found[2];
+                        setTimeout(() => this.state[pin].value = null, 50);
+                    }    
+                );
+            }
+        }
+
+        async stopWatch (pin) {
+            if (this.state[pin]) {
+                for (const id of this.state[pin].id) {
+                    await this.send(`clearWatch(${id})`);
+                }
+                delete this.state[pin];
+            }
+        }
+
+        checkPinEvent (pin, event) {
+            if (this.state[pin]) {
+                if (event === RpiPicoInterruptEvent.CHANGE) {
+                    return this.state[pin].value !== null;
+                }
+                return this.state[pin].value === event;
+            }
+        }
     }
 
     class RpiPicoBlocks {
@@ -257,39 +313,19 @@
         }
         
         get ANALOG_PINS_MENU () {
+            const pins = this.pinsMap();
             return [
-                { text: 'GP26', value: '26' },
-                { text: 'GP27', value: '27' },
-                { text: 'GP28', value: '28' },
+                { text: 'GP26', value: `${pins[26]}` },
+                { text: 'GP27', value: `${pins[27]}` },
+                { text: 'GP28', value: `${pins[28]}` },
             ];
         };
 
         get DIGITAL_PINS_MENU () {
-            return [
-                { text: 'GP0', value: '0' },
-                { text: 'GP1', value: '1' },
-                { text: 'GP2', value: '2' },
-                { text: 'GP3', value: '3' },
-                { text: 'GP4', value: '4' },
-                { text: 'GP5', value: '5' },
-                { text: 'GP6', value: '6' },
-                { text: 'GP7', value: '7' },
-                { text: 'GP8', value: '8' },
-                { text: 'GP9', value: '9' },
-                { text: 'GP10', value: '10' },
-                { text: 'GP11', value: '11' },
-                { text: 'GP12', value: '12' },
-                { text: 'GP13', value: '13' },
-                { text: 'GP14', value: '14' },
-                { text: 'GP15', value: '15' },
-                { text: 'GP16', value: '16' },
-                { text: 'GP17', value: '17' },
-                { text: 'GP18', value: '18' },
-                { text: 'GP19', value: '19' },
-                { text: 'GP20', value: '20' },
-                { text: 'GP21', value: '21' },
-                { text: 'GP22', value: '22' },
-            ];
+            return Object.entries(this.pinsMap()).map(([key, value]) => ({
+                text: `GP${key}`,
+                value: `${value}`
+            }));
         };
 
         get DIGITAL_VALUE_MENU () {
@@ -311,6 +347,32 @@
             ];
         }
 
+        get INTERRUPT_EVENTS_MENU () {
+            return [
+                {
+                    text: formatMessage({
+                        id: 'rpipico.interruptEventsMenu.falling',
+                        default: 'falling'
+                    }),
+                    value: RpiPicoInterruptEvent.FALLING
+                },
+                {
+                    text: formatMessage({
+                        id: 'rpipico.interruptEventsMenu.rising',
+                        default: 'rising'
+                    }),
+                    value: RpiPicoInterruptEvent.RISING
+                },
+                {
+                    text: formatMessage({
+                        id: 'rpipico.interruptEventsMenu.change',
+                        default: 'change'
+                    }),
+                    value: RpiPicoInterruptEvent.CHANGE
+                },
+            ];
+        }
+
         constructor () {
             this.runtime = Scratch.vm.runtime;
             this._peripheral = new RpiPico(this.runtime, RpiPicoBlocks.EXTENSION_ID);
@@ -324,7 +386,7 @@
                 try {
                     // put files...
                     for (const [filename, content] of files) {
-                        await this._peripheral._put(filename, content);
+                        await this._peripheral.put(filename, content);
                     }
                 } catch (e) {
                     this._peripheral._serial._handleRequestError(e);
@@ -336,10 +398,45 @@
             }
         }
 
+        run (code) {
+            return this._peripheral.run(code);
+        }
+
         send (command, waitFor) {
             return this._peripheral.send(command, waitFor);
         }
-        
+
+        pinsMap () {
+            return {
+                0: 0,
+                1: 1,
+                2: 2,
+                3: 3,
+                4: 4,
+                5: 5,
+                6: 6,
+                7: 7,
+                8: 8,
+                9: 9,
+                10: 10,
+                11: 11,
+                12: 12,
+                13: 13,
+                14: 14,
+                15: 15,
+                16: 16,
+                17: 17,
+                18: 18,
+                19: 19,
+                20: 20,
+                21: 21,
+                22: 22,
+                26: 26,
+                27: 27,
+                28: 28,
+            };
+        }
+
         getInfo () {
             const locale = formatMessage.setup().locale;
             this._peripheral.setupAddon(
@@ -504,6 +601,77 @@
                             }
                         }
                     },
+                    '---',
+                    {
+                        opcode: 'listenEvent',
+                        text: formatMessage({
+                            id: 'rpipico.listenEvent',
+                            default: 'listen event on [PIN]'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'whenCatchEvent',
+                        text: formatMessage({
+                            id: 'rpipico.whenCatchEvent',
+                            default: 'when catch [EVENT] at pin [PIN]',
+                        }),
+                        blockType: BlockType.HAT,
+                        arguments: {
+                            EVENT: {
+                                type: ArgumentType.STRING,
+                                menu: 'interruptEvents',
+                                defaultValue: this.INTERRUPT_EVENTS_MENU[0].value
+                            },
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'isCatchEvent',
+                        text: formatMessage({
+                            id: 'rpipico.isCatchEvent',
+                            default: 'catch [EVENT] at pin [PIN]',
+                        }),
+                        blockType: BlockType.BOOLEAN,
+                        arguments: {
+                            EVENT: {
+                                type: ArgumentType.STRING,
+                                menu: 'interruptEvents',
+                                defaultValue: this.INTERRUPT_EVENTS_MENU[0].value
+                            },
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'stopListen',
+                        text: formatMessage({
+                            id: 'rpipico.stopListen',
+                            default: 'stop listen on [PIN]'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
                 ],
                 menus: {
                     ledState: {
@@ -525,6 +693,10 @@
                     digitalValues: {
                         acceptReporters: true,
                         items: this.DIGITAL_VALUE_MENU
+                    },
+                    interruptEvents: {
+                        acceptReporters: false,
+                        items: this.INTERRUPT_EVENTS_MENU
                     }
                 }
             }
@@ -577,6 +749,26 @@
             let angle = Cast.toNumber(args.ANGLE);
             angle = MathUtil.clamp(angle, SERVO_ANGLE_RANGE.min, SERVO_ANGLE_RANGE.max);
             await this._peripheral.setServoAngle(pin, angle);
+        }
+
+        async listenEvent (args) {
+            const pin = Cast.toNumber(args.PIN);
+            await this._peripheral.setupWatcher(pin);
+        }
+
+        whenCatchEvent (args) {
+            return this.isCatchEvent(args);
+        }
+
+        isCatchEvent (args) {
+            const pin = Cast.toNumber(args.PIN);
+            const event = Cast.toString(args.EVENT);
+            return this._peripheral.checkPinEvent(pin, event);
+        }
+
+        async stopListen (args) {
+            const pin = Cast.toNumber(args.PIN);
+            await this._peripheral.stopWatch(pin);
         }
     }
 

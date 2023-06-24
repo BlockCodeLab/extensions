@@ -78,7 +78,14 @@
             'picoed2.digitalValueMenu.high': 'high',
             'picoed2.toggleDigitalValue': 'toggle pin [PIN] digital',
             'picoed2.setAnalogValue': 'set pin [PIN] analog [VALUE] %',
-            'picoed2.setServoAngle': 'set pin [PIN] servo angle [ANGLE]'
+            'picoed2.setServoAngle': 'set pin [PIN] servo angle [ANGLE]',
+            'picoed2.interruptEventsMenu.falling': 'falling',
+            'picoed2.interruptEventsMenu.rising': 'rising',
+            'picoed2.interruptEventsMenu.change': 'change',
+            'picoed2.listenEvent': 'listen event on [PIN]',
+            'picoed2.whenCatchEvent': 'when catch [EVENT] at pin [PIN]',
+            'picoed2.isCatchEvent': 'catch [EVENT] at pin [PIN]',
+            'picoed2.stopListen': 'stop listen on [PIN]',
         },
         'zh-cn': {
             'picoed2.download': '同步到 Pico:ed V2',
@@ -158,7 +165,14 @@
             'picoed2.digitalValueMenu.high': '高电平',
             'picoed2.toggleDigitalValue': '切换引脚 [PIN] 数字值',
             'picoed2.setAnalogValue': '将引脚 [PIN] 模拟值设为 [VALUE] %',
-            'picoed2.setServoAngle': '将引脚 [PIN] 舵机角度设为 [ANGLE]'
+            'picoed2.setServoAngle': '将引脚 [PIN] 舵机角度设为 [ANGLE]',
+            'picoed2.interruptEventsMenu.falling': '电平下降',
+            'picoed2.interruptEventsMenu.rising': '电平上升',
+            'picoed2.interruptEventsMenu.change': '电平变化',
+            'picoed2.listenEvent': '监听引脚 [PIN] 事件',
+            'picoed2.whenCatchEvent': '当引脚 [PIN] 发生 [EVENT]',
+            'picoed2.isCatchEvent': '引脚 [PIN] 发生 [EVENT] ？',
+            'picoed2.stopListen': '停止监听引脚 [PIN]',
         },
         'zh-tw': {
             'picoed2.download': '下載到 Pico:ed V2',
@@ -238,7 +252,14 @@
             'picoed2.digitalValueMenu.high': '高電平',
             'picoed2.toggleDigitalValue': '切換引腳 [PIN] 數字值',
             'picoed2.setAnalogValue': '將引腳 [PIN] 模擬值設為 [VALUE] %',
-            'picoed2.setServoAngle': '將引腳 [PIN] 舵機角度設為 [ANGLE]'
+            'picoed2.setServoAngle': '將引腳 [PIN] 舵機角度設為 [ANGLE]',
+            'picoed2.interruptEventsMenu.falling': '電平下降',
+            'picoed2.interruptEventsMenu.rising': '電平上升',
+            'picoed2.interruptEventsMenu.change': '電平變化',
+            'picoed2.listenEvent': '監聽引腳 [PIN] 事件',
+            'picoed2.whenCatchEvent': '當引腳 [PIN] 發生 [EVENT] 事件',
+            'picoed2.isCatchEvent': '引腳 [PIN] 發生 [EVENT] 事件？',
+            'picoed2.stopListen': '停止監聽引腳 [PIN]',
         },
     });
 })(window.Scratch);

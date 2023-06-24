@@ -97,6 +97,11 @@
         LOW: 'LOW',
         HIGH: 'HIGH'
     }
+    const PicoEd2InterruptEvent = {
+        FALLING: 'FALLING',
+        RISING: 'RISING',
+        CHANGE: 'CHANGE'
+    }
 
     const SERVO_ANGLE_RANGE = {min: 0, max: 180};
     const SERVO_DUTY_RANGE = {min: 0.5, max: 2.5}; // ms, 0~180
@@ -108,10 +113,7 @@
             this._encoder = new TextEncoder();
             this._runtime.registerPeripheralExtension(this._extensionId, this);
             this._files = [];
-            this.state = {
-                a: false,
-                b: false,
-            };
+            this.state = {};
         }
 
         get filters () {
@@ -137,10 +139,8 @@
                 // put files...
                 const files = [].concat(this._files.concat, Object.entries(FontFiles));
                 for (const [filename, content] of files) {
-                    await this._put(filename, content);
+                    await this.put(filename, content);
                 }
-                // and setups
-                await this._setupButtons();
             } catch (e) {
                 this._serial._handleRequestError(e);
             } finally {
@@ -148,7 +148,7 @@
             }
         }
 
-        async _put (filename, buffer) {
+        async put (filename, buffer) {
             const uint8 = this._encoder.encode(buffer);
             const safeBuffer = buffer.replaceAll('\\', '\\\\').replaceAll('\'', '\\\'').replaceAll('\n', '\\n');
             const code = `(${FILE_PUT_CODE})('${filename}', '${safeBuffer}');`;
@@ -157,13 +157,18 @@
             } catch (e) {
                 await this.write(`\r.rm ${filename}\r`);
                 await delay(500);
-                await this.write('\r.flash -w\r');
-                await delay(500);
-                await this.transfer(this._encoder.encode(code));
-                await delay(500);
-                await this.write('\r.load\r', WAIT_FOR_PROMPT);
-                await this.write('\r.flash -e\r', '\r\nFlash has erased\r\n');
+                await this.run(code);
             }
+        }
+
+        async run (code) {
+            await this.write('\r.flash -w\r');
+            await delay(500);
+            await this.transfer(this._encoder.encode(code));
+            await delay(500);
+            await this.write('\r.load\r', WAIT_FOR_PROMPT);
+            // await this.write('\r.flash -e\r', '\r\nFlash has erased\r\n');
+            this.state = {};
         }
 
         async send (command, waitFor = null) {
@@ -191,13 +196,21 @@
             await this.send(`picoed.buttonB.on('click',()=>{${down('b')};${check('b')}})`);
             this.on(/^~ button_([ab])_down$/m, found => this.state[found[1]] = true);
             this.on(/^~ button_([ab])_up$/m, found => this.state[found[1]] = false);
+            this.state.a = false;
+            this.state.b = false;
         }
 
-        get buttonA () {
+        async isPressedA () {
+            if (typeof this.state.a === 'undefined') {
+                await this._setupButtons(code);
+            }
             return this.state.a;
         }
 
-        get buttonB () {
+        async isPressedB () {
+            if (typeof this.state.b === 'undefined') {
+                await this._setupButtons(code);
+            }
             return this.state.b;
         }
 
@@ -263,7 +276,7 @@
 
         async setPinMode (pin, mode = PicoEd2PinMode.NONE) {
             this.state[pin] = mode;
-            await this.send(`pinMode(board.P${pin},${mode})`, WAIT_FOR_UNDEFINED);
+            await this.send(`pinMode(${pin},${mode})`, WAIT_FOR_UNDEFINED);
         }
 
         async getPinValue (pin) {
@@ -276,7 +289,7 @@
                 return await this.getPinValue(pin);
             }
             const found = await this.send(
-                `console.log('\n~ pin${pin}<'+analogRead(board.P${pin})+'>')`,
+                `console.log('\n~ pin${pin}<'+analogRead(${pin})+'>')`,
                 /^~ pin\d+<([\d.]+)>$/m
             );
             if (isNumber(found[1])) {
@@ -293,7 +306,7 @@
                 return await this.isPinHigh(pin);
             }
             const found = await this.send(
-                `console.log('\n~ pin${pin}<'+digitalRead(board.P${pin})+'>')`,
+                `console.log('\n~ pin${pin}<'+digitalRead(${pin})+'>')`,
                 /^~ pin\d+<(\d)>$/m
             );
             return found[1] === '1';
@@ -308,11 +321,11 @@
                 return await this.setPinValue(pin, value);
             }
             if (typeof value === 'undefined') {
-                await this.send(`digitalToggle(board.P${pin})`, WAIT_FOR_UNDEFINED);
+                await this.send(`digitalToggle(${pin})`, WAIT_FOR_UNDEFINED);
             } else if (isNumber(value)) {
-                await this.send(`analogWrite(board.P${pin},${value})`, WAIT_FOR_UNDEFINED);
+                await this.send(`analogWrite(${pin},${value})`, WAIT_FOR_UNDEFINED);
             } else {
-                await this.send(`digitalWrite(board.P${pin},${value})`, WAIT_FOR_UNDEFINED);
+                await this.send(`digitalWrite(${pin},${value})`, WAIT_FOR_UNDEFINED);
             }
         }
 
@@ -321,7 +334,7 @@
                 this.state[pin] = `pwm_${Date.now()}`;
                 const hz = 1000 / SERVO_PERIOD;
                 const duty = SERVO_DUTY_RANGE.min / SERVO_PERIOD;
-                await this.send(`const ${this.state[pin]}=board.pwm(board.P${pin},${hz},${duty})`, WAIT_FOR_UNDEFINED);
+                await this.send(`const ${this.state[pin]}=board.pwm(${pin},${hz},${duty})`, WAIT_FOR_UNDEFINED);
                 await this.send(`${this.state[pin]}.start();`);
             }
             if (!this.state[pin].includes('pwm_')) {
@@ -331,6 +344,47 @@
             const d = (SERVO_DUTY_RANGE.max - SERVO_DUTY_RANGE.min) / SERVO_ANGLE_RANGE.max;
             const duty = (SERVO_DUTY_RANGE.min + angle * d) / SERVO_PERIOD;
             await this.send(`${this.state[pin]}.setDuty(${duty})`, WAIT_FOR_UNDEFINED);
+        }
+
+        /* watch */
+        
+        async setupWatcher (pin) {
+            const falling = `console.log('\n~ pin_${pin}_${PicoEd2InterruptEvent.FALLING}')`;
+            const rising = `console.log('\n~ pin_${pin}_${PicoEd2InterruptEvent.RISING}')`;
+            const watchFalling = await this.send(`setWatch(()=>${falling},${pin},FALLING,10)`, WAIT_FOR_NUMBER);
+            const watchRising = await this.send(`setWatch(()=>${rising},${pin},RISING,10)`, WAIT_FOR_NUMBER);
+
+            if (watchFalling || watchRising) {
+                this.state[pin] = {
+                    id: [watchFalling && watchFalling[1], watchRising && watchRising[1]],
+                    value: null
+                };
+                this.on(
+                    new RegExp(`^~ pin_(${pin})_(${PicoEd2InterruptEvent.FALLING}|${PicoEd2InterruptEvent.RISING})$`, 'm'),
+                    found => {
+                        this.state[pin].value = found[2];
+                        setTimeout(() => this.state[pin].value = null, 50);
+                    }    
+                );
+            }
+        }
+
+        async stopWatch (pin) {
+            if (this.state[pin]) {
+                for (const id of this.state[pin].id) {
+                    await this.send(`clearWatch(${id})`);
+                }
+                delete this.state[pin];
+            }
+        }
+
+        checkPinEvent (pin, event) {
+            if (this.state[pin]) {
+                if (event === PicoEd2InterruptEvent.CHANGE) {
+                    return this.state[pin].value !== null;
+                }
+                return this.state[pin].value === event;
+            }
         }
     }
 
@@ -758,36 +812,20 @@
         }
         
         get ANALOG_PINS_MENU () {
+            const pins = this.pinsMap();
             return [
-                { text: 'P0', value: '0' },
-                { text: 'P1', value: '1' },
-                { text: 'P2', value: '2' },
-                { text: 'P3', value: '3' }
+                { text: 'P0', value: `${pins[0]}` },
+                { text: 'P1', value: `${pins[1]}` },
+                { text: 'P2', value: `${pins[2]}` },
+                { text: 'P3', value: `${pins[3]}` },
             ];
         };
 
         get DIGITAL_PINS_MENU () {
-            return [
-                { text: 'P0', value: '0' },
-                { text: 'P1', value: '1' },
-                { text: 'P2', value: '2' },
-                { text: 'P3', value: '3' },
-                { text: 'P4', value: '4' },
-                { text: 'P5', value: '5' },
-                { text: 'P6', value: '6' },
-                { text: 'P7', value: '7' },
-                { text: 'P8', value: '8' },
-                { text: 'P9', value: '9' },
-                { text: 'P10', value: '10' },
-                { text: 'P11', value: '11' },
-                { text: 'P12', value: '12' },
-                { text: 'P13', value: '13' },
-                { text: 'P14', value: '14' },
-                { text: 'P15', value: '15' },
-                { text: 'P16', value: '16' },
-                { text: 'P19', value: '19' },
-                { text: 'P20', value: '20' }
-            ];
+            return Object.entries(this.pinsMap()).map(([key, value]) => ({
+                text: `P${key}`,
+                value: `${value}`
+            }));
         };
 
         get DIGITAL_VALUE_MENU () {
@@ -809,6 +847,32 @@
             ];
         }
 
+        get INTERRUPT_EVENTS_MENU () {
+            return [
+                {
+                    text: formatMessage({
+                        id: 'picoed2.interruptEventsMenu.falling',
+                        default: 'falling'
+                    }),
+                    value: PicoEd2InterruptEvent.FALLING
+                },
+                {
+                    text: formatMessage({
+                        id: 'picoed2.interruptEventsMenu.rising',
+                        default: 'rising'
+                    }),
+                    value: PicoEd2InterruptEvent.RISING
+                },
+                {
+                    text: formatMessage({
+                        id: 'picoed2.interruptEventsMenu.change',
+                        default: 'change'
+                    }),
+                    value: PicoEd2InterruptEvent.CHANGE
+                },
+            ];
+        }
+
         constructor () {
             this.runtime = Scratch.vm.runtime;
             this._peripheral = new PicoEd2(this.runtime, PicoEd2Blocks.EXTENSION_ID);
@@ -823,7 +887,7 @@
                 try {
                     // put files...
                     for (const [filename, content] of files) {
-                        await this._peripheral._put(filename, content);
+                        await this._peripheral.put(filename, content);
                     }
                 } catch (e) {
                     this._peripheral._serial._handleRequestError(e);
@@ -835,10 +899,38 @@
             }
         }
 
+        run (code) {
+            return this._peripheral.run(code);
+        }
+
         send (command, waitFor) {
             return this._peripheral.send(command, waitFor);
         }
-        
+
+        pinsMap () {
+            return {
+                0: 26,
+                1: 27,
+                2: 28,
+                3: 29,
+                4: 4,
+                5: 5,
+                6: 6,
+                7: 7,
+                8: 8,
+                9: 9,
+                10: 10,
+                11: 11,
+                12: 12,
+                13: 13,
+                14: 14,
+                15: 15,
+                16: 16,
+                19: 19,
+                20: 18,
+            };
+        }
+
         getInfo () {
             const locale = formatMessage.setup().locale;
             this._peripheral.setupAddon(
@@ -1194,6 +1286,77 @@
                             }
                         }
                     },
+                    '---',
+                    {
+                        opcode: 'listenEvent',
+                        text: formatMessage({
+                            id: 'picoed2.listenEvent',
+                            default: 'listen event on [PIN]'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'whenCatchEvent',
+                        text: formatMessage({
+                            id: 'picoed2.whenCatchEvent',
+                            default: 'when catch [EVENT] at pin [PIN]',
+                        }),
+                        blockType: BlockType.HAT,
+                        arguments: {
+                            EVENT: {
+                                type: ArgumentType.STRING,
+                                menu: 'interruptEvents',
+                                defaultValue: this.INTERRUPT_EVENTS_MENU[0].value
+                            },
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'isCatchEvent',
+                        text: formatMessage({
+                            id: 'picoed2.isCatchEvent',
+                            default: 'catch [EVENT] at pin [PIN]',
+                        }),
+                        blockType: BlockType.BOOLEAN,
+                        arguments: {
+                            EVENT: {
+                                type: ArgumentType.STRING,
+                                menu: 'interruptEvents',
+                                defaultValue: this.INTERRUPT_EVENTS_MENU[0].value
+                            },
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'stopListen',
+                        text: formatMessage({
+                            id: 'picoed2.stopListen',
+                            default: 'stop listen on [PIN]'
+                        }),
+                        blockType: BlockType.COMMAND,
+                        arguments: {
+                            PIN: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'digitalPins',
+                                defaultValue: this.DIGITAL_PINS_MENU[0].value
+                            }
+                        }
+                    },
                 ],
                 menus: {
                     ledState: {
@@ -1227,6 +1390,10 @@
                     digitalValues: {
                         acceptReporters: true,
                         items: this.DIGITAL_VALUE_MENU
+                    },
+                    interruptEvents: {
+                        acceptReporters: false,
+                        items: this.INTERRUPT_EVENTS_MENU
                     }
                 }
             }
@@ -1245,15 +1412,15 @@
             return this.isButtonPressed(args) === true;    
         }
 
-        isButtonPressed (args) {
+        async isButtonPressed (args) {
             const btn = Cast.toString(args.BTN);
             switch (btn) {
             case PicoEd2Buttons.A:
-                return this._peripheral.buttonA;
+                return await this._peripheral.isPressedA();
             case PicoEd2Buttons.B:
-                return this._peripheral.buttonB;
+                return await this._peripheral.isPressedB();
             default:
-                return this._peripheral.buttonA || this._peripheral.buttonB;
+                return await this._peripheral.isPressedA() || await this._peripheral.isPressedB();
             }
         }
 
@@ -1370,6 +1537,26 @@
             let angle = Cast.toNumber(args.ANGLE);
             angle = MathUtil.clamp(angle, SERVO_ANGLE_RANGE.min, SERVO_ANGLE_RANGE.max);
             await this._peripheral.setServoAngle(pin, angle);
+        }
+
+        async listenEvent (args) {
+            const pin = Cast.toNumber(args.PIN);
+            await this._peripheral.setupWatcher(pin);
+        }
+
+        whenCatchEvent (args) {
+            return this.isCatchEvent(args);
+        }
+
+        isCatchEvent (args) {
+            const pin = Cast.toNumber(args.PIN);
+            const event = Cast.toString(args.EVENT);
+            return this._peripheral.checkPinEvent(pin, event);
+        }
+
+        async stopListen (args) {
+            const pin = Cast.toNumber(args.PIN);
+            await this._peripheral.stopWatch(pin);
         }
     }
 
