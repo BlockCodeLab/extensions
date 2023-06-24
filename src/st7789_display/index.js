@@ -3,7 +3,7 @@
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
     const formatMessage = Scratch.formatMessage;
-    const MathUtil = Scratch.MathUtil;
+    const Base64Util = Scratch.Base64Util;
     const log = Scratch.log;
 
     const LibraryFiles = await Scratch.require('./files.js');
@@ -16,7 +16,7 @@
     const blockIconURI = 'data:image/png;base64,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';
 
     const delay = d => new Promise(r => setTimeout(r, d));
-    const extensionData = await Scratch.vm.extensionManager.fetchExtensionData();
+    const color16 = (r, g, b) => ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
     
     const REQUIRE_FILE_CODE = `function (f){return eval(new TextDecoder().decode(require('fs').readFile(f)))}`
 
@@ -26,60 +26,7 @@
     const WAIT_FOR_PROMISE = `\r\n\x1B[96m[Promise]\x1B[0m\r\n${WAIT_FOR_PROMPT}`;
 
     // supported boards
-    const RPIPICO = 'rpipico';
-    const PICOED2 = 'picoed2';
-    const SUPPORTED_BOARDS = [RPIPICO, PICOED2];
-    // boards' pins
-    const RPIPICO_PINS = {
-        0: 0,
-        1: 1,
-        2: 2,
-        3: 3,
-        4: 4,
-        5: 5,
-        6: 6,
-        7: 7,
-        8: 8,
-        9: 9,
-        10: 10,
-        11: 11,
-        12: 12,
-        13: 13,
-        14: 14,
-        15: 15,
-        16: 16,
-        17: 17,
-        18: 18,
-        19: 19,
-        20: 20,
-        21: 21,
-        22: 22,
-        26: 26,
-        27: 27,
-        28: 28,
-        29: 29
-    };
-    const PICOED2_PINS = {
-        0: 26,
-        1: 27,
-        2: 28,
-        3: 29,
-        4: 4,
-        5: 5,
-        6: 6,
-        7: 7,
-        8: 8,
-        9: 9,
-        10: 10,
-        11: 11,
-        12: 12,
-        13: 13,
-        14: 14,
-        15: 15,
-        16: 16,
-        19: 19,
-        20: 18
-    };
+    const SUPPORTED_BOARDS = ['rpipico', 'picoed2'];
     
     const WIDTH = [135, 240, 320];
     const HEIGHT = [135, 240];
@@ -97,55 +44,61 @@
         DIRECT: 'direct',
         BUFFER: 'buffer'
     };
+    const IMAGE_FLIP = {
+        NONE: '0',
+        SIDE_TO_SIDE: '1',
+        TURN_UPSIDE_DOWN: '2',
+        ROTATE_180: '3'
+    };
 
     class ST7789DisplayBlocks {
         static get EXTENSION_ID () {
             return 'st7789Display';
         }
 
-        static get PINS () {
-            return {
-                [RPIPICO]: RPIPICO_PINS,
-                [PICOED2]: PICOED2_PINS
-            };
-        }
-
         constructor () {
             this.runtime = Scratch.vm.runtime;
 
-            this.reset();
-
-            this.init = this.init.bind(this);
-            this.reset = this.reset.bind(this);
-            this.runtime.on('SELECT_BOARD', this.init);
-            this.runtime.on('PROJECT_STOP_ALL', this.reset);
-            this.runtime.on('PERIPHERAL_DISCONNECTED', this.reset);
-        }
-
-        async init (extensionId, boardId) {
-            if (extensionId === ST7789DisplayBlocks.EXTENSION_ID) {
-                const boardService = await Scratch.extensions.getService(boardId);
-                boardService('put', Object.entries(LibraryFiles));
-                this.send = (command, waitFor) => boardService('send', command, waitFor);
-                this.pin = pin => ST7789DisplayBlocks.PINS[boardId][pin] || -1;
-            };
-        }
-
-        reset () {
             this.option = {
                 width: 240,
                 height: 240,
                 rotation: 0,
-                bus: 0,
-                sck: -1,
-                mosi: -1,
-                dc: -1,
-                cs: -1,
-                rst: -1,
-                bl: -1,
                 displayMode: DISPLAY_MODE.DIRECT
             };
+
+            this.reset();
+
+            this.reset = this.reset.bind(this);
+            this.initialBoard = this.initialBoard.bind(this);
+            this.removeBoard = this.removeBoard.bind(this);
+
+            this.runtime.on('PROJECT_STOP_ALL', this.reset);
+            this.runtime.on('PERIPHERAL_DISCONNECTED', this.reset);
+
+            this.runtime.on('SELECT_BOARD', this.initialBoard);
+            this.runtime.on('REMOVE_BOARD', this.removeBoard);
+        }
+
+        async initialBoard (extensionId, boardId) {
+            if (extensionId === ST7789DisplayBlocks.EXTENSION_ID) {
+                const boardService = await Scratch.extensions.getService(boardId);
+                boardService('put', Object.entries(LibraryFiles));
+                this.gpio = await boardService('pinsMap');
+                this.run = code => boardService('run', code);
+                this.send = (command, waitFor) => boardService('send', command, waitFor);
+            };
+        }
+
+        removeBoard () {
+            this.gpio = null;
+            this.run = null;
+            this.send = null;
+            this.reset();
+        }
+
+        reset () {
             this.st7789 = null;
+            this.imageCache = null;
         }
 
         get DISPLAY_MODE_MENU () {
@@ -233,6 +186,61 @@
             ];
         }
 
+        get FLIP_MENU () {
+            return [
+                {
+                    text: formatMessage({
+                        id: 'st7789Display.none',
+                        default: 'none'
+                    }),
+                    value: IMAGE_FLIP.NONE
+                },
+                {
+                    text: formatMessage({
+                        id: 'st7789Display.flip.side',
+                        default: 'side to side'
+                    }),
+                    value: IMAGE_FLIP.SIDE_TO_SIDE
+                },
+                {
+                    text: formatMessage({
+                        id: 'st7789Display.flip.updown',
+                        default: 'turn upside down'
+                    }),
+                    value: IMAGE_FLIP.TURN_UPSIDE_DOWN
+                },
+                {
+                    text: formatMessage({
+                        id: 'st7789Display.flip.rotate',
+                        default: 'rotate 180'
+                    }),
+                    value: IMAGE_FLIP.ROTATE_180
+                }
+            ]
+        }
+
+        LISTS_MENU () {
+            const stage = this.runtime.getTargetForStage();
+            const target = this.runtime.getEditingTarget();
+            const globalLists = Object.values(stage.variables).filter(this._filter);
+            const localLists = Object.values(target.variables).filter(this._filter);
+            const uniqueLists = [...new Set([...globalLists, ...localLists])];
+
+            if (uniqueLists.length > 0) {
+                return uniqueLists.map(i => ({
+                    text: i.name,
+                    value: i.id
+                }));
+            }
+
+            return [
+                formatMessage({
+                    id: 'st7789Display.none',
+                    default: 'none'
+                })
+            ];
+        }
+
         getInfo () {
             return {
                 id: ST7789DisplayBlocks.EXTENSION_ID,
@@ -243,6 +251,25 @@
                 boards: SUPPORTED_BOARDS,
                 blockIconURI,
                 blocks: [
+                    {
+                        opcode: 'initialGallery',
+                        blockType: BlockType.COMMAND,
+                        text: formatMessage({
+                            id: 'st7789Display.initialGallery',
+                            default: 'initial pixel gallery [GALLERY]'
+                        }),
+                        arguments: {
+                            GALLERY: {
+                                type: ArgumentType.STRING,
+                                menu: 'LISTS'
+                            },
+                            COLOR: {
+                                type: ArgumentType.COLOR,
+                                defaultValue: '#000000'
+                            },
+                        }
+                    },
+                    '---',
                     {
                         opcode: 'setSPI',
                         blockType: BlockType.COMMAND,
@@ -312,6 +339,21 @@
                         }
                     },
                     {
+                        opcode: 'setMode',
+                        blockType: BlockType.COMMAND,
+                        text: formatMessage({
+                            id: 'st7789Display.setMode',
+                            default: 'set display mode [MODE]'
+                        }),
+                        arguments: {
+                            MODE: {
+                                type: ArgumentType.STRING,
+                                menu: 'displayMode',
+                                defaultValue: DISPLAY_MODE.BUFFER
+                            },
+                        }
+                    },
+                    {
                         opcode: 'setRotation',
                         blockType: BlockType.COMMAND,
                         text: formatMessage({
@@ -342,22 +384,6 @@
                         }
 
                     },
-                    '---',
-                    {
-                        opcode: 'setMode',
-                        blockType: BlockType.COMMAND,
-                        text: formatMessage({
-                            id: 'st7789Display.setMode',
-                            default: 'set display mode [MODE]'
-                        }),
-                        arguments: {
-                            MODE: {
-                                type: ArgumentType.STRING,
-                                menu: 'displayMode',
-                                defaultValue: DISPLAY_MODE.BUFFER
-                            },
-                        }
-                    },
                     {
                         opcode: 'displayBuffer',
                         blockType: BlockType.COMMAND,
@@ -365,6 +391,75 @@
                             id: 'st7789Display.displayBuffer',
                             default: 'display buffer'
                         }),
+                    },
+                    {
+                        opcode: 'getWidth',
+                        blockType: BlockType.REPORTER,
+                        text: formatMessage({
+                            id: 'st7789Display.getWidth',
+                            defalut: 'display width'
+                        })
+                    },
+                    {
+                        opcode: 'getHeight',
+                        blockType: BlockType.REPORTER,
+                        text: formatMessage({
+                            id: 'st7789Display.getHeight',
+                            defalut: 'display height'
+                        })
+                    },
+                    '---',
+                    {
+                        opcode: 'drawImage',
+                        blockType: BlockType.COMMAND,
+                        text: formatMessage({
+                            id: 'st7789Display.drawImage',
+                            default: 'draw image [IMAGE] at x: [X] y: [Y] size to [SIZE] and flip [FLIP]'
+                        }),
+                        arguments: {
+                            IMAGE: {
+                                type: ArgumentType.STRING,
+                                defaultValue: 'png;base64'
+                            },
+                            X: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            Y: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            SIZE: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 100
+                            },
+                            FLIP: {
+                                type: ArgumentType.NUMBER,
+                                menu: 'flip',
+                                defaultValue: IMAGE_FLIP.NONE
+                            }
+                        }
+                    },
+                    {
+                        opcode: 'setPixel',
+                        blockType: BlockType.COMMAND,
+                        text: formatMessage({
+                            id: 'st7789Display.setPixel',
+                            default: 'set pixel x: [X] y: [Y] color to [COLOR]'
+                        }),
+                        arguments: {
+                            X: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            Y: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            COLOR: {
+                                type: ArgumentType.COLOR
+                            }
+                        }
                     },
                     '---',
                     {
@@ -383,28 +478,6 @@
                             default: 'set screen color to [COLOR]'
                         }),
                         arguments: {
-                            COLOR: {
-                                type: ArgumentType.COLOR
-                            }
-                        }
-                    },
-                    '---',
-                    {
-                        opcode: 'setPixel',
-                        blockType: BlockType.COMMAND,
-                        text: formatMessage({
-                            id: 'st7789Display.setPixel',
-                            default: 'set pixel x: [X] y: [Y] color to [COLOR]'
-                        }),
-                        arguments: {
-                            X: {
-                                type: ArgumentType.NUMBER,
-                                defaultValue: 0
-                            },
-                            Y: {
-                                type: ArgumentType.NUMBER,
-                                defaultValue: 0
-                            },
                             COLOR: {
                                 type: ArgumentType.COLOR
                             }
@@ -621,6 +694,9 @@
                     },
                 ],
                 menus: {
+                    LISTS: {
+                        items: 'LISTS_MENU'
+                    },
                     width: {
                         acceptReporters: false,
                         items: this.WIDTH_MENU
@@ -640,9 +716,27 @@
                     displayMode: {
                         acceptReporters: false,
                         items: this.DISPLAY_MODE_MENU
+                    },
+                    flip: {
+                        acceptReporters: false,
+                        items: this.FLIP_MENU
                     }
                 }
             }
+        }
+
+        _filter (item) {
+            if (item.type !== 'list' || !Array.isArray(item.value)) {
+                return false;
+            }
+            if (item.value.length === 0) {
+                return true;
+            }
+            const imageType = encodeURIComponent('data:image/png;base64');
+            return item.value.every(item => {
+                const arr = `${item}`.split(',');
+                return arr.length > 1 && arr[1] && arr[1].includes(imageType);
+            });
         }
 
         async getDevice () {
@@ -659,12 +753,12 @@
                 rst,
                 bl
             } = this.option;
-            const varName = `display_${bus}_${sck}_${mosi}`;
 
             if (sck === -1 || mosi === -1 || dc === -1 || cs === -1 || rst === -1) {
                 return;
             }
 
+            const varName = `display_${bus}_${sck}_${mosi}`;
             if (this.st7789) {
                 if (this.st7789.name === varName) {
                     return this.st7789;
@@ -729,16 +823,18 @@
         }
 
         setSPI (args) {
+            if (!this.gpio) return;
             this.option.bus = Cast.toNumber(args.BUS);
-            this.option.sck = this.pin(Cast.toNumber(args.SCK));
-            this.option.mosi = this.pin(Cast.toNumber(args.MOSI));
+            this.option.sck = Cast.toNumber(this.gpio[args.SCK]);
+            this.option.mosi = Cast.toNumber(this.gpio[args.MOSI]);
         }
 
         setPins (args) {
-            this.option.dc = this.pin(Cast.toNumber(args.DC));
-            this.option.cs = this.pin(Cast.toNumber(args.CS));
-            this.option.rst = this.pin(Cast.toNumber(args.RST));
-            this.option.bl = this.pin(Cast.toNumber(args.BL));
+            if (!this.gpio) return;
+            this.option.dc = Cast.toNumber(this.gpio[args.DC]);
+            this.option.cs = Cast.toNumber(this.gpio[args.CS]);
+            this.option.rst = Cast.toNumber(this.gpio[args.RST]);
+            this.option.bl = Cast.toNumber(this.gpio[args.BL]);
         }
 
         setResolution (args) {
@@ -757,6 +853,14 @@
             const device = await this.getDevice();
             if (!device) return;
             await device[Cast.toString(args.STATE)]();
+        }
+
+        getWidth () {
+            return this.option.width;
+        }
+
+        getHeight () {
+            return this.option.height;
         }
 
         setMode (args) {
@@ -879,7 +983,81 @@
             const r = Cast.toNumber(args.R);
             await device.send(`fillRoundRect(${x},${y},${w},${h},${r})`);
         }
-        
+
+        async initialGallery (args, util) {
+            const id = Cast.toString(args.GALLERY);
+            const list = util.target.lookupVariableById(id);
+            const codes = [];
+            const cache = new Map();
+            const promises = list.value.map(item => {
+                const [_, value] = item.split(',');
+                const image = decodeURIComponent(value)
+                return new Promise(resolve => {
+                    const img = new Image();
+                    img.src = image;
+                    img.onload = () => {
+                        const imageData = new Uint16Array(img.width * img.height);
+                        const bitmap = {
+                            width: img.width,
+                            height: img.height,
+                            bpp: 16
+                        };
+                        const option = {
+                            color: 0xffff
+                        };
+                        if (args.COLOR) {
+                            option.transparent = color16(...Cast.toRgbColorList(args.COLOR));
+                            imageData.fill(option.transparent);
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, img.width, img.width);
+                        for (let x = 0; x < img.width; x++) {
+                            for (let y = 0; y < img.height; y++) {
+                                const [r, g, b, a] = ctx.getImageData(x, y, 1, 1).data;
+                                if (a !== 0) {
+                                    imageData[y * img.width + x] = color16(r, g, b);
+                                }
+                            }
+                        }
+                        bitmap.data = Base64Util.arrayBufferToBase64(imageData.buffer);
+    
+                        const varName = `bitmap_${Date.now().toString(36)}`;
+                        codes.push(`const ${varName}=${JSON.stringify({bitmap, option})};`);
+                        cache.set(image, varName);
+                        resolve()
+                    };
+                });
+            });
+            await Promise.all(promises);
+            await this.run(codes.join('\n'))
+            this.imageCache = cache;
+        }
+
+        async drawImage (args) {
+            const device = await this.getDevice();
+            if (!device) return;
+
+            const x = Cast.toNumber(args.X);
+            const y = Cast.toNumber(args.Y);
+            const image = Cast.toString(args.IMAGE);
+            const scale = Cast.toNumber(args.SIZE) / 100;
+            const flip = Cast.toNumber(args.FLIP);
+
+            const option = {
+                scaleX: scale,
+                scaleY: scale,
+                flipX: !!(flip & IMAGE_FLIP.TURN_UPSIDE_DOWN),
+                flipY: !!(flip & IMAGE_FLIP.SIDE_TO_SIDE)
+            };
+
+            if (this.imageCache && this.imageCache.has(image)) {
+                const varName = this.imageCache.get(image);
+                await device.send(`drawBitmap(${x},${y},${varName}.bitmap,Object.assign(${varName}.option, ${JSON.stringify(option)}))`);
+            }
+        }
     }
 
     Scratch.extensions.register(new ST7789DisplayBlocks());
