@@ -2,7 +2,7 @@
     Scratch.export({
         en: {
             'st7789Display.name': 'ST7789 Display',
-            'st7789Display.setSPI': 'set SPI bus [BUS] and SCK [SCK] MOSI [MOSI]',
+            'st7789Display.setSPI': 'set SPI bus [BUS] SCK [SCK] MOSI [MOSI] and baudrate [BAUDRATE] MHz',
             'st7789Display.setPins': 'set control pins DC [DC] CS [CS] reset [RST] and backlight [BL]',
             'st7789Display.setResolution': 'set display width [WIDTH] and height [HEIGHT]',
             'st7789Display.setRotation': 'set display rotation [ROTATION]',
@@ -40,7 +40,7 @@
         },
         'zh-cn': {
             'st7789Display.name': 'ST7789 显示屏',
-            'st7789Display.setSPI': '将 SPI 总线设为 [BUS] 引脚设为 SCK [SCK] MOSI [MOSI]',
+            'st7789Display.setSPI': '将 SPI 总线设为 [BUS] 引脚设为 SCK [SCK] MOSI [MOSI] 波特率设为 [BAUDRATE] MHz',
             'st7789Display.setPins': '将控制引脚设为 DC [DC] CS [CS] RST [RST] BL [BL]',
             'st7789Display.setResolution': '将显示宽设为 [WIDTH] 高设为 [HEIGHT]',
             'st7789Display.setRotation': '将显示方向设为 [ROTATION]',
@@ -78,7 +78,7 @@
         },
         'zh-tw': {
             'st7789Display.name': 'ST7789 顯示屏',
-            'st7789Display.setSPI': '將 SPI 總線設為 [BUS] 引腳設為 SCK [SCK] MOSI [MOSI]',
+            'st7789Display.setSPI': '將 SPI 總線設為 [BUS] 引腳設為 SCK [SCK] MOSI [MOSI] 波特率設為 [BAUDRATE] MHz',
             'st7789Display.setPins': '將控制引腳設為 DC [DC] CS [CS] RST [RST] BL [BL]',
             'st7789Display.setResolution': '將顯示寬設為 [WIDTH] 高設為 [HEIGHT]',
             'st7789Display.setRotation': '將顯示方向設為 [ROTATION]',

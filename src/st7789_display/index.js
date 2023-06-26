@@ -6,7 +6,7 @@
     const Base64Util = Scratch.Base64Util;
     const log = Scratch.log;
 
-    const LibraryFiles = await Scratch.require('./files.js');
+    const LibraryFiles = await Scratch.require('./library.js');
 
     // all translations
     const translations = await Scratch.require('./translations.js');
@@ -59,13 +59,6 @@
         constructor () {
             this.runtime = Scratch.vm.runtime;
 
-            this.option = {
-                width: 240,
-                height: 240,
-                rotation: 0,
-                displayMode: DISPLAY_MODE.DIRECT
-            };
-
             this.reset();
 
             this.reset = this.reset.bind(this);
@@ -98,6 +91,15 @@
 
         reset () {
             this.st7789 = null;
+
+            this.option = {
+                width: 240,
+                height: 240,
+                baudrate: 40,
+                rotation: 0,
+                displayMode: DISPLAY_MODE.DIRECT,
+            };
+
             this.imageCache = null;
         }
 
@@ -241,6 +243,20 @@
             ];
         }
 
+        _filter (item) {
+            if (item.type !== 'list' || !Array.isArray(item.value)) {
+                return false;
+            }
+            if (item.value.length === 0) {
+                return true;
+            }
+            const imageType = encodeURIComponent('data:image/png;base64');
+            return item.value.every(item => {
+                const arr = `${item}`.split(',');
+                return arr.length > 1 && arr[1] && arr[1].includes(imageType);
+            });
+        }
+
         getInfo () {
             return {
                 id: ST7789DisplayBlocks.EXTENSION_ID,
@@ -275,12 +291,16 @@
                         blockType: BlockType.COMMAND,
                         text: formatMessage({
                             id: 'st7789Display.setSPI',
-                            default: 'set SPI bus [BUS] and SCK [SCK] MOSI [MOSI]'
+                            default: 'set SPI bus [BUS] baudrate [BAUDRATE] and SCK [SCK] MOSI [MOSI]'
                         }),
                         arguments: {
                             BUS: {
                                 type: ArgumentType.NUMBER,
                                 defaultValue: 0
+                            },
+                            BAUDRATE: {
+                                type:ArgumentType.NUMBER,
+                                defaultValue: this.option.baudrate
                             },
                             SCK: {
                                 type: ArgumentType.NUMBER,
@@ -385,14 +405,6 @@
 
                     },
                     {
-                        opcode: 'displayBuffer',
-                        blockType: BlockType.COMMAND,
-                        text: formatMessage({
-                            id: 'st7789Display.displayBuffer',
-                            default: 'display buffer'
-                        }),
-                    },
-                    {
                         opcode: 'getWidth',
                         blockType: BlockType.REPORTER,
                         text: formatMessage({
@@ -409,6 +421,19 @@
                         })
                     },
                     '---',
+                    {
+                        opcode: 'fillScreen',
+                        blockType: BlockType.COMMAND,
+                        text: formatMessage({
+                            id: 'st7789Display.fillScreen',
+                            default: 'set screen color to [COLOR]'
+                        }),
+                        arguments: {
+                            COLOR: {
+                                type: ArgumentType.COLOR
+                            }
+                        }
+                    },
                     {
                         opcode: 'drawImage',
                         blockType: BlockType.COMMAND,
@@ -441,27 +466,13 @@
                         }
                     },
                     {
-                        opcode: 'setPixel',
+                        opcode: 'displayBuffer',
                         blockType: BlockType.COMMAND,
                         text: formatMessage({
-                            id: 'st7789Display.setPixel',
-                            default: 'set pixel x: [X] y: [Y] color to [COLOR]'
+                            id: 'st7789Display.displayBuffer',
+                            default: 'display buffer'
                         }),
-                        arguments: {
-                            X: {
-                                type: ArgumentType.NUMBER,
-                                defaultValue: 0
-                            },
-                            Y: {
-                                type: ArgumentType.NUMBER,
-                                defaultValue: 0
-                            },
-                            COLOR: {
-                                type: ArgumentType.COLOR
-                            }
-                        }
                     },
-                    '---',
                     {
                         opcode: 'clearScreen',
                         blockType: BlockType.COMMAND,
@@ -470,19 +481,7 @@
                             default: 'clear screen'
                         })
                     },
-                    {
-                        opcode: 'fillScreen',
-                        blockType: BlockType.COMMAND,
-                        text: formatMessage({
-                            id: 'st7789Display.fillScreen',
-                            default: 'set screen color to [COLOR]'
-                        }),
-                        arguments: {
-                            COLOR: {
-                                type: ArgumentType.COLOR
-                            }
-                        }
-                    },
+                    '---',
                     {
                         opcode: 'setPenColor',
                         blockType: BlockType.COMMAND,
@@ -510,6 +509,27 @@
                         }
                     },
                     '---',
+                    {
+                        opcode: 'setPixel',
+                        blockType: BlockType.COMMAND,
+                        text: formatMessage({
+                            id: 'st7789Display.setPixel',
+                            default: 'set pixel x: [X] y: [Y] color to [COLOR]'
+                        }),
+                        arguments: {
+                            X: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            Y: {
+                                type: ArgumentType.NUMBER,
+                                defaultValue: 0
+                            },
+                            COLOR: {
+                                type: ArgumentType.COLOR
+                            }
+                        }
+                    },
                     {
                         opcode: 'drawLine',
                         blockType: BlockType.COMMAND,
@@ -725,26 +745,13 @@
             }
         }
 
-        _filter (item) {
-            if (item.type !== 'list' || !Array.isArray(item.value)) {
-                return false;
-            }
-            if (item.value.length === 0) {
-                return true;
-            }
-            const imageType = encodeURIComponent('data:image/png;base64');
-            return item.value.every(item => {
-                const arr = `${item}`.split(',');
-                return arr.length > 1 && arr[1] && arr[1].includes(imageType);
-            });
-        }
-
         async getDevice () {
             if (!this.send) return;
 
             const {
                 width,
                 height,
+                baudrate,
                 bus,
                 sck,
                 mosi,
@@ -772,7 +779,7 @@
             await this.send(`const ${varName} = new ST7789()`, WAIT_FOR_UNDEFINED);
 
             const spiConfig = JSON.stringify({
-                baudrate: 40000000,
+                baudrate: baudrate * 1000000,
                 miso: -1,
                 sck,
                 mosi
@@ -825,6 +832,7 @@
         setSPI (args) {
             if (!this.gpio) return;
             this.option.bus = Cast.toNumber(args.BUS);
+            this.option.baudrate = Cast.toNumber(args.BAUDRATE);
             this.option.sck = Cast.toNumber(this.gpio[args.SCK]);
             this.option.mosi = Cast.toNumber(this.gpio[args.MOSI]);
         }
@@ -1061,4 +1069,8 @@
     }
 
     Scratch.extensions.register(new ST7789DisplayBlocks());
+
+    await Scratch.extensions.use('pixelGallery');
+
+    Scratch.vm.emit('EXTENSION_SELECTED');
 })(window.Scratch);
