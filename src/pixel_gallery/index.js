@@ -35,6 +35,7 @@
             if (uniqueLists.length === 0) {
                 const stage = this.runtime.getTargetForStage();
                 const target = this.runtime.getEditingTarget();
+                if (!stage || !target) return;
                 const variable = this.runtime.createNewGlobalVariable(
                     formatMessage({
                         id: 'pixelGallery.defaultVariableName',
@@ -299,8 +300,8 @@
         _getUniqueLists () {
             const stage = this.runtime.getTargetForStage();
             const target = this.runtime.getEditingTarget();
-            const globalLists = Object.values(stage.variables).filter(this._filter);
-            const localLists = Object.values(target.variables).filter(this._filter);
+            const globalLists = stage ? Object.values(stage.variables).filter(this._filter) : [];
+            const localLists = target ? Object.values(target.variables).filter(this._filter) : [];
             return [...new Set([...globalLists, ...localLists])];
         }
 
