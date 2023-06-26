@@ -151,7 +151,9 @@ window.Scratch.export({"st7789.js":`
                  *     'buffer' or 'direct'. Default is 'direct'
                  */
                 getContext (type = 'direct') {
-                    if (!this.context) {
+                    if (!this.context || this.type !== type) {
+                        this.type = type;
+                        this.context = null;
                         if (type === 'buffer') {
                             this.context = new graphics.BufferedGraphicsContext(
                                 this.width,
@@ -159,7 +161,7 @@ window.Scratch.export({"st7789.js":`
                                 {
                                     rotation: this.rotation,
                                     bpp: 16,
-                                    display: (buffer) => {
+                                    display: buffer => {
                                         const xa = this.xstart + this.width - 1;
                                         const ya = this.ystart + this.height - 1;
                                         this.cmd(0x2a, [0, this.xstart, xa >> 8, xa & 0xff]); // column addr set

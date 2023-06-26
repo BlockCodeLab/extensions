@@ -1,0 +1,1 @@
+!function(c){c.export(class{getInfo(){}})}(window.Scratch);
