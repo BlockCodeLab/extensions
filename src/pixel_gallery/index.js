@@ -30,6 +30,27 @@
             this._gallery = {};
         }
 
+        initialList () {
+            const uniqueLists = this._getUniqueLists();
+            if (uniqueLists.length === 0) {
+                const stage = this.runtime.getTargetForStage();
+                const target = this.runtime.getEditingTarget();
+                const variable = this.runtime.createNewGlobalVariable(
+                    formatMessage({
+                        id: 'pixelGallery.defaultVariableName',
+                        default: 'my gallery'
+                    }),
+                    null,
+                    'list'
+                );
+                uniqueLists.push(variable);
+                // update blocks
+                // ? Why
+                Scratch.vm.setEditingTarget(stage.id);
+                Scratch.vm.setEditingTarget(target.id);
+            }
+        }
+
         setupAddon () {
             Scratch.gui.addon({
                 id: PixelGalleryBlocks.EXTENSION_ID,
@@ -70,6 +91,7 @@
         }
 
         getInfo () {
+            this.initialList();
             this.setupAddon();
             return {
                 id: PixelGalleryBlocks.EXTENSION_ID,
@@ -279,24 +301,7 @@
             const target = this.runtime.getEditingTarget();
             const globalLists = Object.values(stage.variables).filter(this._filter);
             const localLists = Object.values(target.variables).filter(this._filter);
-            const uniqueLists = [...new Set([...globalLists, ...localLists])];
-
-            if (uniqueLists.length === 0) {
-                const variable = this.runtime.createNewGlobalVariable(
-                    formatMessage({
-                        id: 'pixelGallery.defaultVariableName',
-                        default: 'my gallery'
-                    }),
-                    null,
-                    'list'
-                );
-                uniqueLists.push(variable);
-                // update blocks
-                // ? Why
-                Scratch.vm.setEditingTarget(stage.id);
-                Scratch.vm.setEditingTarget(target.id);
-            }
-            return uniqueLists;
+            return [...new Set([...globalLists, ...localLists])];
         }
 
         _filter (item) {
@@ -317,7 +322,7 @@
             const list = this.runtime.getEditingTarget().lookupVariableById(id);
             if (list) {
                 if (!this._gallery[id]) {
-                    this._initGallery(id, list)
+                    this._initialGallery(id, list)
                 }
                 return this._gallery[id];
             }
@@ -326,7 +331,7 @@
         _getValue (id, key) {
             if (!this._gallery[id]) {
                 const list = this.runtime.getEditingTarget().lookupVariableById(id);
-                this._initGallery(id, list);
+                this._initialGallery(id, list);
             }
             return (this._gallery[id][key] && this._gallery[id][key].data) || '';
         }
@@ -335,7 +340,7 @@
             const list = this.runtime.getEditingTarget().lookupVariableById(id);
             if (list) {
                 if (!this._gallery[id]) {
-                    this._initGallery(id, list)
+                    this._initialGallery(id, list)
                 }
                 this._gallery[id][key] = value;
                 this._updateList(list);
@@ -346,7 +351,7 @@
             const list = this.runtime.getEditingTarget().lookupVariableById(id);
             if (list) {
                 if (!this._gallery[id]) {
-                    this._initGallery(id, list);
+                    this._initialGallery(id, list);
                 }
     
                 delete this._gallery[id][key];
@@ -354,7 +359,7 @@
             }
         }
 
-        _initGallery(id, list) {
+        _initialGallery(id, list) {
             this._gallery[id] = list ? (list.value.reduce((result, item) =>  {
                 const [key, value, width, height] = item.split(',');
                 result[decodeURIComponent(key)] = {
@@ -377,7 +382,7 @@
             const index = Cast.toNumber(args.INDEX) - 1;
             if (!this._gallery[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initGallery(id, list);
+                this._initialGallery(id, list);
             }
             const key = Object.keys(this._gallery[id])[index];
             return (this._gallery[id][key] && this._gallery[id][key].data) || '';
@@ -389,7 +394,7 @@
             const index = Cast.toNumber(args.INDEX) - 1;
             if (!this._gallery[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initGallery(id, list);
+                this._initialGallery(id, list);
             }
             const key = Object.keys(this._gallery[id])[index];
             return (this._gallery[id][key] && this._gallery[id][key][desc]) || '';
@@ -400,7 +405,7 @@
             const key = Cast.toString(args.NAME);
             if (!this._gallery[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initGallery(id, list);
+                this._initialGallery(id, list);
             }
             return (this._gallery[id][key] && this._gallery[id][key].data) || '';
         }
@@ -411,7 +416,7 @@
             const key = Cast.toString(args.NAME);
             if (!this._gallery[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initGallery(id, list);
+                this._initialGallery(id, list);
             }
             return (this._gallery[id][key] && this._gallery[id][key][desc]) || '';
         }
@@ -420,7 +425,7 @@
             const id = Cast.toString(args.GALLERY);
             if (!this._gallery[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initGallery(id, list);
+                this._initialGallery(id, list);
             }
             return Object.keys(this._gallery[id]).length;
         }

@@ -15,7 +15,29 @@
             this._dicts = {};
         }
 
+        initialList () {
+            const uniqueLists = this._getUniqueLists();
+            if (uniqueLists.length === 0) {
+                const stage = this.runtime.getTargetForStage();
+                const target = this.runtime.getEditingTarget();
+                const variable = this.runtime.createNewGlobalVariable(
+                    formatMessage({
+                        id: 'dictionary.defaultVariableName',
+                        default: 'my dictionary'
+                    }),
+                    null,
+                    'list'
+                );
+                uniqueLists.push(variable);
+                // update blocks
+                // ? Why
+                Scratch.vm.setEditingTarget(stage.id);
+                Scratch.vm.setEditingTarget(target.id);
+            }
+        }
+
         getInfo () {
+            this.initialList();
             return {
                 id: 'dictionary',
                 name: formatMessage({
@@ -242,31 +264,19 @@
         }
 
         LISTS_MENU () {
-            const stage = this.runtime.getTargetForStage();
-            const target = this.runtime.getEditingTarget();
-            const globalLists = Object.values(stage.variables).filter(this._filter);
-            const localLists = Object.values(target.variables).filter(this._filter);
-            const uniqueLists = [...new Set([...globalLists, ...localLists])];
-
-            if (uniqueLists.length === 0) {
-                const variable = this.runtime.createNewGlobalVariable(
-                    formatMessage({
-                        id: 'dictionary.defaultVariableName',
-                        default: 'my dictionary'
-                    }),
-                    null,
-                    LIST_TYPE
-                );
-                uniqueLists.push(variable);
-                // ? Why
-                Scratch.vm.setEditingTarget(stage.id);
-                Scratch.vm.setEditingTarget(target.id);
-            }
-
+            const uniqueLists = this._getUniqueLists();
             return uniqueLists.map(i => ({
                 text: i.name,
                 value: i.id
             }));
+        }
+
+        _getUniqueLists () {
+            const stage = this.runtime.getTargetForStage();
+            const target = this.runtime.getEditingTarget();
+            const globalLists = Object.values(stage.variables).filter(this._filter);
+            const localLists = Object.values(target.variables).filter(this._filter);
+            return [...new Set([...globalLists, ...localLists])];
         }
 
         _filter (item) {
@@ -279,21 +289,7 @@
             return item.value.every(item => `${item}`.split(',').length === 2);
         }
 
-        addKeyValue (args, util) {
-            const id = Cast.toString(args.DICT);
-            const list = util.target.lookupVariableById(id);
-            if (list) {
-                if (!this._dicts[id]) {
-                    this._initDict(id, list)
-                }
-                const key = Cast.toString(args.KEY);
-                const value = Cast.toString(args.VALUE);
-                this._dicts[id][key] = value;
-                this._updateList(list);
-            }
-        }
-
-        _initDict(id, list) {
+        _initialDict(id, list) {
             this._dicts[id] = list ? (list.value.reduce((result, item) =>  {
                 const [key, value] = item.split(',');
                 result[decodeURIComponent(key)] = decodeURIComponent(value);
@@ -307,12 +303,26 @@
                 .map(([key, value]) => `${encodeURIComponent(key)},${encodeURIComponent(value)}`);
         }
 
+        addKeyValue (args, util) {
+            const id = Cast.toString(args.DICT);
+            const list = util.target.lookupVariableById(id);
+            if (list) {
+                if (!this._dicts[id]) {
+                    this._initialDict(id, list)
+                }
+                const key = Cast.toString(args.KEY);
+                const value = Cast.toString(args.VALUE);
+                this._dicts[id][key] = value;
+                this._updateList(list);
+            }
+        }
+
         removeKey (args, util) {
             const id = Cast.toString(args.DICT);
             const list = util.target.lookupVariableById(id);
             if (list) {
                 if (!this._dicts[id]) {
-                    this._initDict(id, list);
+                    this._initialDict(id, list);
                 }
                 const key = Cast.toString(args.KEY);
                 delete this._dicts[id][key];
@@ -338,7 +348,7 @@
             const key = Cast.toString(args.KEY);
             if (!this._dicts[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initDict(id, list);
+                this._initialDict(id, list);
             }
             return this._dicts[id][key] || '';
         }
@@ -348,7 +358,7 @@
             const value = Cast.toString(args.VALUE);
             if (!this._dicts[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initDict(id, list);
+                this._initialDict(id, list);
             }
             const keys = Object.keys(this._dicts[id]);
             const values = Object.values(this._dicts[id]);
@@ -360,7 +370,7 @@
             const id = Cast.toString(args.DICT);
             if (!this._dicts[id]) {
                 const list = util.target.lookupVariableById(id);
-                this._initDict(id, list);
+                this._initialDict(id, list);
             }
             return Object.keys(this._dicts[id]).length;
         }
