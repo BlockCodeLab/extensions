@@ -1,4 +1,4 @@
-(function (Scratch) {
+(function (Scratch, require, exports) {
     /**
      * A constant value helping to transform a value in radians to degrees.
      * @type {number}
@@ -70,9 +70,9 @@
         return scratchDegrees(Math.atan2(y, x) * TO_DEGREE);
     };
 
-    Scratch.export({
+    exports({
         motionVector,
         scratchDegrees,
         scratchAtan2
     });
-})(window.Scratch)
+})(Scratch, require, exports)

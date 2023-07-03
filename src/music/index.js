@@ -1,4 +1,9 @@
-(async function (Scratch) {
+(async function (Scratch, require) {
+    /**
+     * The instrument and drum sounds, loaded as static assets.
+     */
+    const assetData = await require('./manifest.js');
+
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Clone = Scratch.Clone;
@@ -6,11 +11,6 @@
     const formatMessage = Scratch.formatMessage;
     const MathUtil = Scratch.MathUtil;
     const Timer = Scratch.Timer;
-
-    /**
-     * The instrument and drum sounds, loaded as static assets.
-     */
-    const assetData = await Scratch.require('./manifest.js');
 
     /**
      * Icon svg to be displayed at the left edge of each extension block, encoded as a data URI.
@@ -1332,4 +1332,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MusicBlocks());
-})(window.Scratch);
+})(Scratch, require);

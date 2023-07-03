@@ -104,4 +104,4 @@
             'notification.message': '消息'
         }
     });
-})(window.Scratch);
+})(Scratch);

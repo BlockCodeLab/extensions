@@ -1,4 +1,4 @@
-(function (Scratch) {
+(function (Scratch, require) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const log = Scratch.log;
@@ -591,7 +591,7 @@
                 name: Scratch3MicroBitBlocks.EXTENSION_NAME,
                 blockIconURI: blockIconURI,
                 showStatusButton: true,
-                docsURI: Scratch.require.resolve(`readme.${locale}.html`),
+                docsURI: require.resolve(`readme.${locale}.html`),
                 blocks: [
                     {
                         opcode: 'whenButtonPressed',
@@ -985,4 +985,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MicroBitBlocks());
-})(window.Scratch);
+})(Scratch, require);

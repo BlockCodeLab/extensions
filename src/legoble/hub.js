@@ -1,5 +1,5 @@
 // https://github.com/bricklife/scratch-lego-bluetooth-extensions/tree/master/scratch-vm/src/extensions/scratch3_legoble
-(function (Scratch) {
+(function (Scratch, require, exports) {
     const BLE = Scratch.BLE;
     const Base64Util = Scratch.Base64Util;
     const MathUtil = Scratch.MathUtil;
@@ -819,7 +819,7 @@
         //log.debug(`${prefix} ${bytes}`);
     };
 
-    Scratch.export(Hub);
+    exports(Hub);
 
     Scratch.extensions.translations({
         en: {
@@ -919,4 +919,4 @@
             'legobluetooth.white': '白',
         },
     });
-})(window.Scratch);
+})(Scratch, require, exports);

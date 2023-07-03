@@ -381,4 +381,4 @@
     }
 
     Scratch.extensions.register(new Scratch3MakeyMakeyBlocks());
-})(window.Scratch);
+})(Scratch);

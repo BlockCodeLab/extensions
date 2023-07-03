@@ -1,4 +1,4 @@
-(function (Scratch) {
+(function (Scratch, require) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const formatMessage = Scratch.formatMessage;
@@ -200,7 +200,7 @@
                     default: 'Weather'
                 }),
                 blockIconURI,
-                docsURI: Scratch.require.resolve(`readme.${locale}.html`),
+                docsURI: require.resolve(`readme.${locale}.html`),
                 blocks: [
                     {
                         opcode: 'getWeather',
@@ -568,4 +568,4 @@
             'weather.pollutant.o3': '臭氧',
         },
     });
-})(window.Scratch);
+})(Scratch, require);

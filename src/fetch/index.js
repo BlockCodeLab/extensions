@@ -147,4 +147,4 @@
             'fetch.clear': '清除緩存'
         }
     });
-})(window.Scratch);
+})(Scratch);

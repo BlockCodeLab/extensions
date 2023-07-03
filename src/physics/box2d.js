@@ -15,7 +15,7 @@
 * misrepresented as being the original software.
 * 3. This notice may not be removed or altered from any source distribution.
 */
-(function (Scratch) {
+(function (Scratch, require, exports) {
    "use strict"
    var Box2D = {};
 
@@ -10853,5 +10853,5 @@
    var i;
    for (i = 0; i < Box2D.postDefs.length; ++i) Box2D.postDefs[i]();
 
-   Scratch.export(Box2D);
-})(window.Scratch);
+   exports.Box2D = Box2D;
+})(Scratch, require, exports);

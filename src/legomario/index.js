@@ -898,4 +898,4 @@
             'legomario.pants.builder': '建築工',
         }
     });
-})(window.Scratch);
+})(Scratch);

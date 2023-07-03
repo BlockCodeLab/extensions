@@ -1,8 +1,8 @@
-(async function (Scratch) {
-    await Scratch.require('https://unpkg.com/@mediapipe/face_detection@0.4.1646425229/face_detection.js');
-    await Scratch.require('https://unpkg.com/@tensorflow/tfjs-core@4.4.0/dist/tf-core.min.js');
-    await Scratch.require('https://unpkg.com/@tensorflow/tfjs-backend-webgl@4.4.0/dist/tf-backend-webgl.min.js');
-    await Scratch.require('https://unpkg.com/@tensorflow-models/face-detection@1.0.1/dist/face-detection.min.js');
+(async function (Scratch, require) {
+    await require('https://unpkg.com/@mediapipe/face_detection@0.4.1646425229/face_detection.js');
+    await require('https://unpkg.com/@tensorflow/tfjs-core@4.4.0/dist/tf-core.min.js');
+    await require('https://unpkg.com/@tensorflow/tfjs-backend-webgl@4.4.0/dist/tf-backend-webgl.min.js');
+    await require('https://unpkg.com/@tensorflow-models/face-detection@1.0.1/dist/face-detection.min.js');
     
     const ArgumentType = Scratch.ArgumentType;
 	const BlockType = Scratch.BlockType;
@@ -674,4 +674,4 @@
             'faceSensing.right': '右'
         }
     });
-})(window.Scratch);
+})(Scratch, require);

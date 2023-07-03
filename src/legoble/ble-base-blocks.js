@@ -1,5 +1,5 @@
 https://github.com/bricklife/scratch-lego-bluetooth-extensions/tree/master/scratch-vm/src/extensions/scratch3_legoble
-(function (Scratch) {
+(function (Scratch, require, exports) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
@@ -630,5 +630,5 @@ https://github.com/bricklife/scratch-lego-bluetooth-extensions/tree/master/scrat
         }
     }
 
-    Scratch.export(BleBaseBlocks);
-})(window.Scratch);
+    exports(BleBaseBlocks);
+})(Scratch, require, exports);

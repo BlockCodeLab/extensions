@@ -1615,4 +1615,4 @@
     }
 
     Scratch.extensions.register(new Scratch3WeDo2Blocks());
-})(window.Scratch);
+})(Scratch);

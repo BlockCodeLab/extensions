@@ -2106,4 +2106,4 @@
     }
 
     Scratch.extensions.register(new Scratch3BoostBlocks());
-})(window.Scratch);
+})(Scratch);

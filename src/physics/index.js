@@ -1,5 +1,7 @@
 // https://github.com/griffpatch/scratch-vm/blob/box2d/src/extensions/scratch3_griffpatch/index.js
-(async function (Scratch) {
+(async function (Scratch, require) {
+    const {Box2D} = await require('./box2d.js');
+
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     // const MathUtil = require('../../util/math-util');
@@ -11,9 +13,6 @@
     // const Timer = require('../../util/timer');
     // const Matter = require('matterJs/matter');
     // const Matter = require('matter-js');
-
-    // const Box2D = require('./Box2d.min').box2d;
-    const Box2D = await Scratch.require('./box2d.js');
 
     const RenderedTarget = {
         EVENT_TARGET_VISUAL_CHANGE: 'EVENT_TARGET_VISUAL_CHANGE',
@@ -1896,4 +1895,4 @@
             'griffpatch.menuUnstable': '極其易變形'
         }
     });
-})(window.Scratch);
+})(Scratch, require);

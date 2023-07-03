@@ -770,4 +770,4 @@
     }
 
     Scratch.extensions.register(new Scratch3PenBlocks);
-})(window.Scratch);
+})(Scratch);

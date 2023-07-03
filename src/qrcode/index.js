@@ -1,6 +1,6 @@
-(async function (Scratch) {
-    await Scratch.require('https://unpkg.com/jsqr@1.4.0/dist/jsQR.js');
-    await Scratch.require('https://unpkg.com/qrcode-svg-ts@1.4.0/dist/index.min.js');
+(async function (Scratch, require) {
+    await require('https://unpkg.com/jsqr@1.4.0/dist/jsQR.js');
+    await require('https://unpkg.com/qrcode-svg-ts@1.4.0/dist/index.min.js');
 
     const formatMessage = Scratch.formatMessage;
     const ArgumentType = Scratch.ArgumentType;
@@ -353,4 +353,4 @@
             'qrcode.setSize': '將二維碼尺寸設為 [SIZE]',
         }
     });
-})(window.Scratch);
+})(Scratch, require);

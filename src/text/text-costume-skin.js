@@ -1,5 +1,5 @@
-(async function (Scratch) {
-    await Scratch.require('https://unpkg.com/twgl.js@5.3.1/dist/5.x/twgl.js');
+(async function (Scratch, require, exports) {
+    await require('https://unpkg.com/twgl.js@5.3.1/dist/5.x/twgl.js');
 
     const EVENTS_WASALTERED = 'WasAltered';
 
@@ -201,5 +201,5 @@
         }
     }
 
-    Scratch.export(TextCostumeSkin);
-})(window.Scratch);
+    exports.TextCostumeSkin = TextCostumeSkin;
+})(Scratch, require, exports);

@@ -6,8 +6,8 @@
  *
  * Video motion sensing primitives.
  */
-(async function (Scratch) {
-    const {motionVector, scratchAtan2} = await Scratch.require('./math.js');
+(async function (Scratch, require, exports) {
+    const {motionVector, scratchAtan2} = await require('./math.js');
     
     /**
      * The width of the intended resolution to analyze for motion.
@@ -381,5 +381,5 @@
         }
     }
 
-    Scratch.export(VideoMotion);
-})(window.Scratch);
+    exports.VideoMotion = VideoMotion;
+})(Scratch, require, exports);

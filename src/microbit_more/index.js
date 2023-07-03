@@ -1,5 +1,5 @@
 // https://github.com/microbit-more/mbit-more-v2/blob/master/src/vm/extensions/block/index.js
-(function (Scratch) {
+(function (Scratch, require) {
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Base64Util = Scratch.Base64Util;
@@ -2087,7 +2087,7 @@
                 name: MbitMoreBlocks.EXTENSION_NAME,
                 blockIconURI,
                 showStatusButton: true,
-                docsURI: Scratch.require.resolve(`readme.${locale}.html`),
+                docsURI: require.resolve(`readme.${locale}.html`),
                 blocks: [
                     {
                         opcode: 'whenConnectionChanged',
@@ -3523,4 +3523,4 @@
             'microbitMore.sendData.data': '數據'
         },
     });
-})(window.Scratch);
+})(Scratch, require);

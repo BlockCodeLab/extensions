@@ -1,12 +1,12 @@
-(async function (Scratch) {
+(async function (Scratch, require) {
+    const {TextCostumeSkin} = await require('./text-costume-skin.js');
+
     const formatMessage = Scratch.formatMessage;
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
     const Clone = Scratch.Clone;
     const Timer = Scratch.Timer;
-
-    const TextCostumeSkin = await Scratch.require('./text-costume-skin.js');
 
     /**
      * Icon svg to be displayed at the left edge of each extension block, encoded as a data URI.
@@ -820,4 +820,4 @@
             'text.zoom': '放大'
         }
     });
-})(window.Scratch);
+})(Scratch, require);

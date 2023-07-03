@@ -1,11 +1,11 @@
 // https://github.com/bricklife/scratch-lego-bluetooth-extensions/tree/master/scratch-vm/src/extensions/scratch3_duplotrain
-(async function (Scratch) {
+(async function (Scratch, require) {
+    const Hub = await require('../legoble/hub.js');
+
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Cast = Scratch.Cast;
     const formatMessage = Scratch.formatMessage;
-
-    const Hub = await Scratch.require('../legoble/hub.js');
 
     const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAUKADAAQAAAABAAAAUAAAAAAx4ExPAAAEl0lEQVR4Ae2bT0jUQRTHZ9xV1/4cMio0aUUqyoQKuniooLBO0amgoi55icLASwpWYkZ2KZKii12KDJSg6JYUVAePGtQSFZLiHzCyQ5pbrk7zdnfW3WXmN7PO+ts/vQX5zW/em3m/99nvvPntz11C8IUEkAASQAJIAAkgASSABJAAEkACSAAJIAEk4B4BahrqzQvCZL77j5DwHDq7bGw+9BXkQxKZzEGpQJWi3L5YoXC345rGQwWaklL4eRX9se59tbGmq423/a6GW3IwVOCS0UUGahWYK0ow5fCtdqf0bqKy/71yP3CaGxXoRMfApqUu3jG/v8ZgOnuX4eEP4UmSFcGOHSsaGfvaRgg7wxgri49EKZ0ghD7ctHHzFdrb+zfeJtrDtbs+MsKqxbnsSAkN+PsHd8hsqr6cUSDAY2zhUjI8SAz6wBYBrEiVkl6FZbGbkp7FE7OWtgaaTeOGFzsDUTas9xNfyeqEgLOzv8jk5DDvC/s0JRjFiYf2kBC76inwsIqKbVxs0cXHGBkd/cTmF+Yp8VA9ZDFf9JgzChTXLd0BhNHh6H83EIAlCqCCwZmYJ7ShL7x8uU/MYNiwroGiZhnGi7mpaqqYD+qabLnGJliGhkktTQ6btUvYbXgAJhKTQS2FU3kpAEvcK20Ak3fNuBgJTbGrJ3RKTmS1TuKW1i6jWpoUMWtrYPJGkXTdy3JaEt2cUlF/1gJcFkLLMCkCtISKABGgJQHL4ahABGhJwHI4KhABWhKwHJ62TyKmnzAsrzfrhuMStnxLrBWoeqpieV05MzxrFQgf7N1+iZiRx1pm0a0VaBYmda/IE+bUx6VjBDxMEDVd95QpaxWYDhBuzJF1CsyWmiqejOveBFSgjpDGjgA1gHRmBKgjpLEjQA0gnRkB6ghp7Mr/C7fceLzU/2FrQuamub35lJQVKtDy/dTeB34eeG4ZIreHb9191DEBVKAjHr1Rq0D9FLntcaez0yiB9ma5GypQzsW4V6lA/nWvaf6NzlXeQh8JzQWNJ8w1x4sNDcpLhtyrag7zn2LRaZWTkwI/wqCSVWtVY/O+Py73MAtZwk4Au2DAuooaVuAplI3N6z7IGXKPJhlmIUtYenMIjvyhIr1ys7uPfwP2YCgUZN9HP9DZ6R95vZwhb1i2oDyA5/X6+MNp8qrt0sk63hAwwS32UtdAPuD67aeng3+Cj/hEB8sq98QG/SeNMDxfse+0Ch5wUCpQQAorsePJWX5ez/92wMYibPl4jG4YUPO62ppOPHCCB/lrAZpAaul4fJf/mvj8yhXFrG5vNd1YXiodNjY+RfreBdjM7z/8Osm99qZTF6SOKXZmMr5yCaeSg7eqsDE0FNrOwRx49nKQVW8po9Vby0npmohYp35Ok8DncRL4MsEFzDg8+tpb5W1MJYaTbybjp0WBkFxrT09RaGjuFi+153i1le7uPNgCx3cfEm49flz6iyInUE62TMVPG0CR3OWObvipVD1X2iFeITZF+tkIV91L3u661nRSeU8l5rA5Zjq+zbXjWCSABJAAEkACSAAJIAEkgASQABJAAkgACSABHYF/doZ0OkkMt+gAAAAASUVORK5CYII=';
 
@@ -456,4 +456,4 @@
             'duplotrain.white': '白',
         },
     });
-})(window.Scratch);
+})(Scratch, require);

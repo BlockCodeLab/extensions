@@ -458,4 +458,4 @@
             'dictionary.defaultVariableName': 'my dictionary'
         }
     });
-})(window.Scratch);
+})(Scratch);

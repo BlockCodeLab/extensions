@@ -1,12 +1,12 @@
-(async function (Scratch) {
+(async function (Scratch, require) {
+    const {VideoMotion} = await require('./library.js');
+
     const ArgumentType = Scratch.ArgumentType;
     const BlockType = Scratch.BlockType;
     const Base64Util = Scratch.Base64Util;
     const Clone = Scratch.Clone;
     const Cast = Scratch.Cast;
     const formatMessage = Scratch.formatMessage;
-
-    const VideoMotion = await Scratch.require('./library.js');
 
     const FORMAT_IMAGE_DATA = 'image-data';
 
@@ -376,15 +376,6 @@
         }
 
         /**
-         * States the video sensing activity can be set to.
-         * @readonly
-         * @enum {string}
-         */
-        static get VideoState () {
-            return VideoState;
-        }
-
-        /**
          * An array of info on video state options for the "turn video [STATE]" block.
          * @type {object[]}
          * @param {string} name - the translatable name to display in the video state menu
@@ -614,4 +605,4 @@
     }
 
     Scratch.extensions.register(new Scratch3VideoSensingBlocks());
-})(window.Scratch);
+})(Scratch, require);
