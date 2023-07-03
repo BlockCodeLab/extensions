@@ -1,14 +1,16 @@
-(async function (Scratch) {
-    const Component = Scratch.gui.Component;
+(async function (Scratch, require) {
+    require('./style.css');
 
-    await Scratch.require('./pixel-gallery-selector.js', false);
-    await Scratch.require('./pixel-gallery-toolbar.js', false);
-    await Scratch.require('./pixel-gallery-sidebar.js', false);
-    await Scratch.require('./pixel-gallery-editor.js', false);
+    await require('./pixel-gallery-selector.js');
+    await require('./pixel-gallery-toolbar.js');
+    await require('./pixel-gallery-sidebar.js');
+    await require('./pixel-gallery-editor.js');
+
+    const Component = Scratch.gui.Component;
 
     class PixelGallery extends Component {
         static get observedState () {
-            return ['galleryId', 'galleryName', 'imageData', 'width', 'height'];
+            return ['galleryId', 'galleryName', 'galleryIndex', 'imageData', 'width', 'height'];
         }
 
         connectedCallback () {
@@ -18,6 +20,12 @@
                 resolve: menu => {
                     this.pixelSelector.updateMenu(menu);
                 }
+            });
+
+            this.setState({
+                galleryName: '',
+                galleryIndex: -1,
+                imageData: null,
             });
 
             if (this.state.galleryId) {
@@ -36,6 +44,7 @@
             if (name === 'galleryId') {
                 this.setState({
                     galleryName: '',
+                    galleryIndex: -1,
                     imageData: null,
                 });
                 this.emit('list', {
@@ -47,24 +56,13 @@
                 return;
             }
 
-            if (name === 'galleryName' && newValue) {
+            if (name === 'galleryIndex') {
                 this.emit('open', {
                     id: this.state.galleryId,
-                    name: this.state.galleryName,
+                    index: this.state.galleryIndex,
                     resolve: imageData => {
                         this.pixelEditor.openImage(imageData);
                     }
-                });
-                return;
-            }
-            
-            if (name === 'imageData' && newValue) {
-                this.emit('save', {
-                    id: this.state.galleryId,
-                    name: this.state.galleryName,
-                    data: newValue,
-                    width: this.state.width,
-                    height: this.state.height
                 });
                 return;
             }
@@ -87,6 +85,18 @@
             }
         }
 
+        handleSaveImage (e) {
+            e.preventDefault();
+            this.emit('save', {
+                id: this.state.galleryId,
+                index: this.state.galleryIndex,
+                name: this.state.galleryName,
+                data: this.state.imageData,
+                width: this.state.width,
+                height: this.state.height
+            });
+        }
+
         handleImportImage (e) {
             e.preventDefault();
             this.pixelEditor.importImage();
@@ -101,7 +111,7 @@
             e.preventDefault();
             this.emit('delete', {
                 id: this.state.galleryId,
-                name: this.state.galleryName
+                index: this.state.galleryIndex
             });
             this.pixelSelector.deleteImage();
         }
@@ -109,7 +119,10 @@
         render () {
             return `
                 <div class="pixel-gallery-wrapper">
-                    <pixel-gallery-editor id="pixel-editor"></pixel-gallery-editor>
+                    <pixel-gallery-editor
+                        id="pixel-editor"
+                        onSaveImage="this.handleSaveImage"
+                    ></pixel-gallery-editor>
                     <pixel-gallery-selector
                         id="pixel-selector"
                         onNewImage="this.handleNewImage"
@@ -122,6 +135,7 @@
                         onImportImage="this.handleImportImage"
                         onDownloadImage="this.handleDownloadImage"
                         onDeleteImage="this.handleDeleteImage"
+                        onSaveImage="this.handleSaveImage"
                     ></pixel-gallery-sidebar>
                 </div>
             `;
@@ -192,4 +206,4 @@
             'pixelGallery.menuButton': '圖庫',
         }
     });
-})(window.Scratch);
+})(Scratch, require);

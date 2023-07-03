@@ -60,10 +60,18 @@
         connectedCallback () {
             super.connectedCallback();
             this.initialContext();
-            this.openImage(this.state.imageData);
+            // this.openImage(this.state.imageData);
         }
 
         stateChangedCallback (name, oldValue, newValue) {
+            if (name === 'imageData') {
+                if (newValue) {
+                    this.emit('SaveImage');
+                } else {
+                    this.drawingBoard.style.display = 'none';
+                }
+            }
+
             if (oldValue === newValue) return;
 
             if (name === 'dx' || name === 'dy') {
@@ -83,10 +91,6 @@
             if (name === 'background') {
                 this.drawingBoard.style.background = newValue;
                 return;
-            }
-
-            if (name === 'imageData' && !newValue) {
-                this.drawingBoard.style.display = 'none';
             }
         }
 
@@ -135,11 +139,10 @@
             this.drawingBoard.style.height = `${height * this.state.scaling}px`;
             this.drawingBoard.style.display = 'block';
 
-            const imageData = this.drawingBoard.toDataURL();
             this.setState({
                 width,
                 height,
-                imageData
+                imageData: this.drawingBoard.toDataURL()
             });
             this.resetData();
 
@@ -376,4 +379,4 @@
     }
 
     customElements.define('pixel-gallery-editor', PixelGalleryEditor);
-})(window.Scratch);
+})(Scratch);

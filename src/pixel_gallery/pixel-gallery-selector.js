@@ -19,11 +19,12 @@
     Component.initialState = {
         galleryId: '',
         galleryName: '',
+        galleryIndex: -1,
     };
 
     class PixelGallerySelector extends Component {
         static get observedState () {
-            return ['width', 'height', 'galleryId', 'galleryName', 'imageData'];
+            return ['width', 'height', 'galleryId', 'galleryName', 'galleryIndex', 'imageData'];
         }
 
         constructor () {
@@ -102,6 +103,7 @@
                     this.setState({
                         galleryId:  menuItem.dataset.id,
                         galleryName: '',
+                        galleryIndex: -1,
                         imageData: null
                     });
                 }
@@ -124,14 +126,15 @@
             if (images) {
                 const addButton = this.galleryList.lastElementChild;
                 this.galleryList.innerHTML = '';
-                Object.entries(images).forEach(([name, image]) => {
+                images.forEach((image, index) => {
                     const imageItem = document.createElement('div');
                     imageItem.className = 'pixel-gallery-list-image';
                     // actived
-                    if (this.state.galleryName === name) {
-                        imageItem.classList.add('actived');
-                    }
-                    imageItem.dataset.name = name;
+                    // if (this.state.galleryIndex === index) {
+                    //     imageItem.classList.add('actived');
+                    // }
+                    imageItem.dataset.index = index;
+                    imageItem.dataset.name = image.name;
                     imageItem.style.backgroundImage = `url(${image.data})`;
                     imageItem.style.backgroundSize = 'contain';
                     imageItem.addEventListener('click', this.handleImageClick.bind(this));
@@ -185,11 +188,15 @@
             elem.addEventListener('click', this.handleImageClick);
             elem.className = 'pixel-gallery-list-image';
             elem.dataset.name = this.getUniqueName();
+            elem.dataset.index = this.galleryList.childNodes.length - 1;
 
             this.galleryList.insertBefore(elem, this.galleryList.lastElementChild);
 
             elem.classList.add('actived');
-            this.setState('galleryName', elem.dataset.name);
+            this.setState({
+                galleryIndex: elem.dataset.index,
+                galleryName: elem.dataset.name,
+            });
         }
 
         handleImageClick (e) {
@@ -205,7 +212,10 @@
 
             // actived
             target.classList.add('actived');
-            this.setState('galleryName', target.dataset.name);
+            this.setState({
+                galleryIndex: target.dataset.index,
+                galleryName: target.dataset.name
+            });
         }
 
         deleteImage () {
@@ -217,8 +227,9 @@
 
                 this.setState({
                     galleryName: '',
+                    galleryIndex: -1,
                     imageData: null
-                })
+                });
             }
         }
 
@@ -265,4 +276,4 @@
     }
 
     customElements.define('pixel-gallery-selector', PixelGallerySelector);
-})(window.Scratch);
+})(Scratch);

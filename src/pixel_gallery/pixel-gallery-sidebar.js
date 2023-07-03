@@ -90,18 +90,6 @@
                 return;
             }
 
-            if (oldValue === newValue) return;
-
-            if (name === 'galleryName') {
-                this.nameInput.value = newValue;
-                return;
-            }
-
-            if (name === 'color' || name === 'saturation' || name === 'brightness') {
-                this.setColor(this.state.color, this.state.saturation, this.state.brightness);
-                return;
-            }
-
             if (name === 'imageData') {
                 this.querySelectorAll('#name-input, .pixel-gallery-sidebar-button:not(.ok-button), .pixel-gallery-sidebar-icon-button')
                     .forEach(elem => {
@@ -112,6 +100,18 @@
                             elem.classList.add('disabled');
                         }
                     });
+                return;
+            }
+
+            if (oldValue === newValue) return;
+
+            if (name === 'galleryName') {
+                this.nameInput.value = newValue;
+                return;
+            }
+
+            if (name === 'color' || name === 'saturation' || name === 'brightness') {
+                this.setColor(this.state.color, this.state.saturation, this.state.brightness);
                 return;
             }
         }
@@ -217,13 +217,13 @@
             this.emit('DeleteImage');
         }
 
-        handleNameChange (e) {
+        handleNameInput (e) {
             e.preventDefault();
             this.setState('galleryName', e.target.value);
+            this.emit('SaveImage');
         }
 
         render () {
-            const isDisabled = this.state.imageData ? '' : 'disabled';
             return `
                 <div class="pixel-gallery-sidebar-wrapper">
                     <input
@@ -231,9 +231,8 @@
                         id="name-input"
                         class="pixel-gallery-sidebar-item pixel-gallery-sidebar-input"
                         placeholder="${messages.Name}"
-                        disabled="${isDisabled}"
-                        value="${this.state.galleryName || ''}"
-                        onchange="this.handleNameChange"
+                        disabled="disabled"
+                        oninput="this.handleNameInput"
                     >
                     <hr class="pixel-gallery-sidebar-divider"></hr>
                     <div id="color-slider">
@@ -317,7 +316,7 @@
                         </div>
                     </div>
                     <button
-                        class="pixel-gallery-sidebar-item pixel-gallery-sidebar-button ${isDisabled}"
+                        class="pixel-gallery-sidebar-item pixel-gallery-sidebar-button disabled"
                         onclick="this.handleResizeImage"
                         disabled="${!this.state.imageData}"
                     >${messages.ResizeButton}</button>
@@ -327,21 +326,21 @@
                     >${messages.NewButton}</button>
                     <div class="pixel-gallery-sidebar-item group">
                         <button
-                            class="pixel-gallery-sidebar-icon-button ${isDisabled}"
+                            class="pixel-gallery-sidebar-icon-button disabled"
                             onclick="this.handleImportImage"
                             disabled="${!this.state.imageData}"
                         >
                             <img src="${importIcon}" alt="${messages.ImportButton}" title="${messages.ImportButton}" />
                         </button>
                         <button
-                            class="pixel-gallery-sidebar-icon-button ${isDisabled}"
+                            class="pixel-gallery-sidebar-icon-button disabled"
                             onclick="this.handleDownloadImage"
                             disabled="${!this.state.imageData}"
                         >
                             <img src="${downloadIcon}" alt="${messages.DownloadButton}" title="${messages.DownloadButton}" />
                         </button>
                         <button
-                            class="pixel-gallery-sidebar-icon-button ${isDisabled}"
+                            class="pixel-gallery-sidebar-icon-button disabled"
                             onclick="this.handleDeleteImage"
                             disabled="${!this.state.imageData}"
                         >
@@ -354,4 +353,4 @@
     }
 
     customElements.define('pixel-gallery-sidebar', PixelGallerySidebar);
-})(window.Scratch);
+})(Scratch);

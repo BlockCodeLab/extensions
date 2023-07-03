@@ -310,4 +310,4 @@
     }
 
     customElements.define('pixel-gallery-toolbar', PixelGalleryToolbar);
-})(window.Scratch);
+})(Scratch);
