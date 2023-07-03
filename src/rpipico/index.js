@@ -39,6 +39,8 @@
         HIGH: 'HIGH'
     }
     const RpiPicoInterruptEvent = {
+        LOW_LEVEL: 'LOW_LEVEL',
+        HIGH_LEVEL: 'HIGH_LEVEL',
         FALLING: 'FALLING',
         RISING: 'RISING',
         CHANGE: 'CHANGE'
@@ -220,6 +222,7 @@
 
             if (watchFalling || watchRising) {
                 this.state[pin] = {
+                    mode: this.state[pin] || RpiPicoPinMode.NONE,
                     id: [watchFalling && watchFalling[1], watchRising && watchRising[1]],
                     value: null
                 };
@@ -227,7 +230,15 @@
                     new RegExp(`^~ pin_(${pin})_(${RpiPicoInterruptEvent.FALLING}|${RpiPicoInterruptEvent.RISING})$`, 'm'),
                     found => {
                         this.state[pin].value = found[2];
-                        setTimeout(() => this.state[pin].value = null, 50);
+                        setTimeout(() => {
+                            if (this.state[pin].value === RpiPicoInterruptEvent.FALLING) {
+                                this.state[pin].value = RpiPicoInterruptEvent.LOW_LEVEL;
+                            } else if (this.state[pin].value === RpiPicoInterruptEvent.RISING) {
+                                this.state[pin].value = RpiPicoInterruptEvent.HIGH_LEVEL;
+                            } else {
+                                this.state[pin].value = null;
+                            }
+                        }, 50);
                     }    
                 );
             }
@@ -245,7 +256,7 @@
         checkPinEvent (pin, event) {
             if (this.state[pin]) {
                 if (event === RpiPicoInterruptEvent.CHANGE) {
-                    return this.state[pin].value !== null;
+                    return this.state[pin].value === RpiPicoInterruptEvent.FALLING || this.state[pin].value === RpiPicoInterruptEvent.RISING;
                 }
                 return this.state[pin].value === event;
             }
@@ -362,6 +373,20 @@
                 },
                 {
                     text: formatMessage({
+                        id: 'rpipico.digitalValueMenu.low',
+                        default: 'low'
+                    }),
+                    value: RpiPicoInterruptEvent.LOW_LEVEL
+                },
+                {
+                    text: formatMessage({
+                        id: 'rpipico.digitalValueMenu.high',
+                        default: 'high'
+                    }),
+                    value: RpiPicoInterruptEvent.HIGH_LEVEL
+                },
+                {
+                    text: formatMessage({
                         id: 'rpipico.interruptEventsMenu.change',
                         default: 'change'
                     }),
@@ -446,7 +471,7 @@
                 name: RpiPicoBlocks.EXTENSION_NAME,
                 blockIconURI: blockIconURI,
                 showStatusButton: true,
-                docsURI: Scratch.require.resolve(`readme.${locale}.html`),
+                docsURI: require.resolve(`readme.${locale}.html`),
                 blocks: [
                     {
                         opcode: 'setLEDState',

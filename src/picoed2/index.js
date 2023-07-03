@@ -95,6 +95,8 @@
         HIGH: 'HIGH'
     }
     const PicoEd2InterruptEvent = {
+        LOW_LEVEL: 'LOW_LEVEL',
+        HIGH_LEVEL: 'HIGH_LEVEL',
         FALLING: 'FALLING',
         RISING: 'RISING',
         CHANGE: 'CHANGE'
@@ -353,6 +355,7 @@
 
             if (watchFalling || watchRising) {
                 this.state[pin] = {
+                    mode: this.state[pin] || PicoEd2PinMode.NONE,
                     id: [watchFalling && watchFalling[1], watchRising && watchRising[1]],
                     value: null
                 };
@@ -360,7 +363,15 @@
                     new RegExp(`^~ pin_(${pin})_(${PicoEd2InterruptEvent.FALLING}|${PicoEd2InterruptEvent.RISING})$`, 'm'),
                     found => {
                         this.state[pin].value = found[2];
-                        setTimeout(() => this.state[pin].value = null, 50);
+                        setTimeout(() => {
+                            if (this.state[pin].value === PicoEd2InterruptEvent.FALLING) {
+                                this.state[pin].value = PicoEd2InterruptEvent.LOW_LEVEL;
+                            } else if (this.state[pin].value === PicoEd2InterruptEvent.RISING) {
+                                this.state[pin].value = PicoEd2InterruptEvent.HIGH_LEVEL;
+                            } else {
+                                this.state[pin].value = null;
+                            }
+                        }, 50);
                     }    
                 );
             }
@@ -378,7 +389,7 @@
         checkPinEvent (pin, event) {
             if (this.state[pin]) {
                 if (event === PicoEd2InterruptEvent.CHANGE) {
-                    return this.state[pin].value !== null;
+                    return this.state[pin].value !== PicoEd2InterruptEvent.FALLING || this.state[pin].value === PicoEd2InterruptEvent.RISING;
                 }
                 return this.state[pin].value === event;
             }
@@ -859,6 +870,20 @@
                         default: 'rising'
                     }),
                     value: PicoEd2InterruptEvent.RISING
+                },
+                {
+                    text: formatMessage({
+                        id: 'picoed2.digitalValueMenu.low',
+                        default: 'low'
+                    }),
+                    value: PicoEd2InterruptEvent.LOW_LEVEL
+                },
+                {
+                    text: formatMessage({
+                        id: 'picoed2.digitalValueMenu.high',
+                        default: 'high'
+                    }),
+                    value: PicoEd2InterruptEvent.HIGH_LEVEL
                 },
                 {
                     text: formatMessage({
