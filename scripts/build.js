@@ -21,7 +21,15 @@ const isProduction = process.env.NODE_ENV === 'production';
 const NOT_SUPPORTED_EXTNAMES = [];
 mkdirp.sync(DIST_DIR);
 
+const docOption = {};
 marked.use({ extensions: [tokenBox] });
+marked.use({
+    walkTokens: token => {
+        if (token.type === 'heading' && token.depth === 1) {
+            docOption.title = token.text;
+        }
+    }
+});
 
 const build = isMinify => {
     copyDir(STATIC_DIR, DIST_DIR, {
@@ -83,19 +91,13 @@ const build = isMinify => {
                 }
 
                 if (path.extname(filename).toLowerCase() === '.md') {
-                    let title = '';
-                    marked.use({
-                        walkTokens: token => {
-                            if (token.type === 'heading' && token.depth === 1) {
-                                title = token.text;
-                            }
-                        }
-                    });
                     const markdown = marked.parse(fs.readFileSync(filepath, 'utf8'));
                     const lang = path.extname(path.basename(filename, '.md'))
                         .substring(1).toLowerCase();
+                    const title = docOption.title || '';
                     const html = ejs.render(template, {lang, title, markdown});
                     fs.writeFileSync(outpath.replace(/\.md$/i, '.html'), html);
+                    docOption.title = '';
                     return;
                 }
 
