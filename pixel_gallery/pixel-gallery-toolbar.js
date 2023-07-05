@@ -44,4 +44,4 @@
                         </div>
                     </div>
                 </div>
-            `}}customElements.define("pixel-gallery-toolbar",i)}(window.Scratch);
+            `}}customElements.define("pixel-gallery-toolbar",i)}(Scratch);

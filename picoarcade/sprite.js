@@ -1,1 +1,1 @@
-!function(c){c.export(class{getInfo(){}})}(window.Scratch);
+!function(e){e.export(class{getInfo(){}})}(Scratch,(require,exports));
