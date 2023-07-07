@@ -1,4 +1,4 @@
-!async function(e,t){e=await e("../st7789_display/library.js");t(Object.assign({},e,{"buzzer_music.js":`
+(async function(e,t){e=await e("../st7789_display/library.js");t(Object.assign({},e,{"buzzer_music.js":`
         // class BuzzerMusic
         (function () {
             const NOTE_FREQ = [
@@ -181,4 +181,4 @@
                 }
             }
         })()
-        `}))}((Scratch,require),exports);
+        `}))})((Scratch,require),exports);
