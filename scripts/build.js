@@ -31,6 +31,15 @@ marked.use({
     }
 });
 
+const minifyOptions = {
+    compress: {
+        negate_iife: false
+    },
+    output: {
+        wrap_iife: true
+    }
+};
+
 const build = isMinify => {
     copyDir(STATIC_DIR, DIST_DIR, {
         filiter: (stat, filepath, filename) => {
@@ -105,7 +114,7 @@ const build = isMinify => {
                     let code = fs.readFileSync(filepath, 'utf8');
                     try {
                         if (isMinify) {
-                            const result = UglifyJS.minify(fs.readFileSync(filepath, 'utf8'));
+                            const result = UglifyJS.minify(fs.readFileSync(filepath, 'utf8'), minifyOptions);
                             if (result.error) {
                                 console.error(`error minify ${filename} in ${extension}: ${result.error}`);
                                 return;
@@ -137,8 +146,7 @@ const build = isMinify => {
 
 const args = process.argv.slice(2);
 const isWatch = args.includes('--watch');
-const isMinify= !isWatch;
 if (isWatch) {
-    fs.watch(SOURCE_DIR, {recursive: true}, () => build(isMinify));
+    fs.watch(SOURCE_DIR, {recursive: true}, () => build(false));
 }
-build(isMinify);
+build(isProduction);

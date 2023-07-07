@@ -1,7 +1,5 @@
-(function (Scratch, require, exports) {
-    exports({
-        'st7789.js':
-`// fork https://github.com/niklauslee/st7789/blob/main/index.js
+// fork https://github.com/niklauslee/st7789/blob/main/index.js
+exports['st7789.js'] = `
 (function () {
     const graphics = require('graphics');
     
@@ -207,6 +205,4 @@
 
     return ST7789;
 })();
-`,
-    });
-})(Scratch, require, exports);
+`;
